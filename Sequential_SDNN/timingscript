@@ -1,0 +1,35 @@
+#!/bin/bash
+# This script run the program matrix multiplication and time its execution
+
+low="$1"
+high="$2"
+num="$3"
+# echo -e "executing bash script name=$0 \n"
+# echo -e "low=$1 \n"
+# echo -e "high=$2 \n"
+# echo -e "num=$3 \n"
+count=$((($high-$low+1)*($high-$low+1)))
+# echo "Total count: $count"
+
+# compiling c file
+gcc -Wall -O3 -o program program.c
+ttTime=0
+for ((r=$low;r<=$high;r++))
+do 
+    for ((c=$low;c<=$high;c++))
+    do 
+        # m=$(( ($RANDOM % $num)+1 ))
+        read m <<< $(awk -v min=1 -v max=$num -v seed=$[32768 * (RANDOM & 32767)] 'BEGIN{srand(seed); print min+(rand()*(max-min))}')
+        # echo -e "($r,$c,$m <= $num)"
+        TIMEFORMAT=%R
+        message=$( time ( ./program $r $c $m 2>/dev/null 1>&2 ) 2>&1 )
+        # ./program $r $c $m
+        # echo $message
+        ttTime=$(echo " $ttTime + $message" |bc)
+        # echo $ttTime
+        sum=$(echo "$ttTime" | bc -l )
+    done
+done
+# echo "$ttTime" | bc -l | awk '{printf "%.3f ", $0}'
+echo $sum | awk '{printf "%.3f ", $0}'
+echo $sum/$count | bc -l | awk '{printf "%.3f\n", $0}'
