@@ -41,10 +41,11 @@ int main(int argc, char**argv) {
     for (int i = 0; i < row_num; i++){
         *(ME_T+i) = (float*)malloc(sizeof(float)*col_num);
     }
-    ME_T[0] = {1, 7,   8,   4};
-    ME_T[1] = {1, 7,   8,   4};
-    ME_T[2] = {1, 7,   8,   4};
-    ME_T[3] = {1, 7,   8,   4};
+
+    ME_T[0][0] =  1; ME_T[0][1] =  7; ME_T[0][2] =  8; ME_T[0][3] =  4; 
+    ME_T[1][0] =  1; ME_T[1][1] =  7; ME_T[1][2] =  8; ME_T[1][3] =  4; 
+    ME_T[2][0] =  1; ME_T[2][1] =  7; ME_T[2][2] =  8; ME_T[2][3] =  4; 
+    ME_T[3][0] =  1; ME_T[3][1] =  7; ME_T[3][2] =  8; ME_T[3][3] =  4; 
     
     print_2d_array(row_num,col_num,ME_T);
 
