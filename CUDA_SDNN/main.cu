@@ -46,9 +46,15 @@ int main(int argc, char**argv) {
     ME_T[1][0] =  1; ME_T[1][1] =  7; ME_T[1][2] =  8; ME_T[1][3] =  4; 
     ME_T[2][0] =  1; ME_T[2][1] =  7; ME_T[2][2] =  8; ME_T[2][3] =  4; 
     ME_T[3][0] =  1; ME_T[3][1] =  7; ME_T[3][2] =  8; ME_T[3][3] =  4; 
-    
+    printf("Matrix ME^T: \n"); fflush(stdout);
     print_2d_array(row_num,col_num,ME_T);
 
+    // Constant parameter from the problem: s
+    float raw_vecS[] = {5, 5, 5, 5};
+    float* s = raw_vecS;
+    
+    printf("Vector s: \n"); fflush(stdout);
+    print_1d_array(row_num,raw_vecS);
 
     // float* A_h = (float*) malloc( sizeof(float)*n );
     // for (unsigned int i=0; i < n; i++) { A_h[i] = (rand()%100)/100.00; }
