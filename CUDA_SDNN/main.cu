@@ -38,8 +38,8 @@ int main(int argc, char**argv) {
 
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
-    for (i = 0; i < row_num; _i++){
-        *(ME_T+_i) = (float*)malloc(sizeof(float)*col_num);
+    for (int i = 0; i < row_num; i++){
+        *(ME_T+i) = (float*)malloc(sizeof(float)*col_num);
     }
     ME_T[0] = {1, 7,   8,   4};
     ME_T[1] = {1, 7,   8,   4};
