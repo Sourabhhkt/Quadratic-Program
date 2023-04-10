@@ -17,7 +17,7 @@ GENCODE_FLAGS   := $(GENCODE_SM30) $(GENCODE_SM35) $(GENCODE_SM37)             \
 $(GENCODE_SM50) $(GENCODE_SM52) $(GENCODE_SM60) $(GENCODE_SM70) $(GENCODE_SM75)
 
 #name executable
-EXE	        = vecadd
+EXE	        = cudasdnnqpsolver
 OBJ	        = main.o support.o
 
 #build up flags and targets
