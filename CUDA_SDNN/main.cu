@@ -54,7 +54,7 @@ int main(int argc, char**argv) {
     float* s = raw_vecS;
     
     printf("Vector s: \n"); fflush(stdout);
-    print_1d_array(row_num,raw_vecS);
+    print_1d_array(row_num,s);
 
     // float* A_h = (float*) malloc( sizeof(float)*n );
     // for (unsigned int i=0; i < n; i++) { A_h[i] = (rand()%100)/100.00; }
