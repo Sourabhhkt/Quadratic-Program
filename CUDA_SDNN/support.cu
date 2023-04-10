@@ -78,7 +78,8 @@ void print_2d_array(int _r, int _c, float** arr){
 
 float* g_function(int num_dim, float* z,  float* l,  float* h )
 {
-  float[num_dim] ans; 
+  float ans[num_dim]; 
+  int i;
   for (i = 0; i < num_dim; i++)
   {
     if ((l[i] == FLT_MIN) and (h[i]== FLT_MAX)) {
