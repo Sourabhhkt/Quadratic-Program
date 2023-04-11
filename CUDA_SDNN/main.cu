@@ -47,7 +47,7 @@ int main(int argc, char**argv) {
 
     // Constant parameter from the problem: l and h
     float* l; float* h; 
-    float raw_l = {FLT_MIN, -2};float raw_h = {-1, 4};
+    float raw_l[] = {FLT_MIN, -2};float raw_h[] = {-1, 4};
     l = raw_l; h = raw_h;
 
     // Constant parameter from the problem: ME^T
@@ -99,7 +99,7 @@ int main(int argc, char**argv) {
 
     // Initialize g_Ex_u
     float* g_Ex_u = (float*)malloc(sizeof(float)*row_num);
-    g_Ex_u = g_function(row_num, vec_add_vec(row_num,Ex,u_0_minus))
+    g_Ex_u = g_function(row_num, vec_add_vec(row_num,Ex,u_0_minus),l,h);
     printf("Vector g_Ex_u: \n"); fflush(stdout);
     print_1d_array(col_num,g_Ex_u);
     // bool tolerance_met = false;
