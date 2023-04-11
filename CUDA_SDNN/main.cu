@@ -88,14 +88,14 @@ int main(int argc, char**argv) {
 
     float* x = (float*)malloc(sizeof(float)*row_num);
     x = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_0),s);
-    printf("Vector ME^T*u0 + s: \n"); fflush(stdout);
+    printf("Vector x = ME^T*u0 + s: \n"); fflush(stdout);
     print_1d_array(row_num,x);
 
     // Initialize Ex
-    float* Ex = (float*)malloc(sizeof(float)*col_num);
-    Ex = mat_mul_vec(col_num,row_num, E, x);
-    printf("Vector Ex: \n"); fflush(stdout);
-    print_1d_array(col_num,Ex);
+    // float* Ex = (float*)malloc(sizeof(float)*col_num);
+    // Ex = mat_mul_vec(col_num,row_num, E, x);
+    // printf("Vector Ex: \n"); fflush(stdout);
+    // print_1d_array(col_num,Ex);
 
     // Initialize g_Ex_u
     // float* g_Ex_u = (float*)malloc(sizeof(float)*col_num);
