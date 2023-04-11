@@ -116,7 +116,7 @@ float* g_function(int num_dim, float* z,  float* l,  float* h )
 float* mat_mul_vec(int _r, int _c, float** _A,float* _vec)
 {
   int _i,_j;
-  float ans_arr[_r];
+  float* ans_arr = (float*)malloc(sizeof(float)*_r);;
   for (_i = 0; _i < _r; _i++)
   {
     float _s = 0;
