@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "support.h"
 #include "kernel.cu"
+#include <float.h>
 
 int main(int argc, char**argv) {
 
