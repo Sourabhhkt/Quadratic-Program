@@ -98,8 +98,8 @@ int main(int argc, char**argv) {
     print_1d_array(col_num,Ex);
 
     // Initialize g_Ex_u
-    float* g_Ex_u = (float*)malloc(sizeof(float)*row_num);
-    g_Ex_u = g_function(row_num, vec_add_vec(row_num,Ex,u_0_minus),l,h);
+    float* g_Ex_u = (float*)malloc(sizeof(float)*col_num);
+    g_Ex_u = g_function(col_num, vec_add_vec(col_num,Ex,u_0_minus),l,h);
     printf("Vector g_Ex_u: \n"); fflush(stdout);
     print_1d_array(col_num,g_Ex_u);
     // bool tolerance_met = false;
