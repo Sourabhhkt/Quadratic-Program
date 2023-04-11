@@ -47,12 +47,13 @@ int main(int argc, char**argv) {
 
     // Constant parameter from the problem: l and h
     float* l; float* h; 
-    float raw_l[] = {FLT_MIN, -2};float raw_h[] = {-1, 4};
+    float raw_l[] = {FLT_MIN, -2};
+    float raw_h[] = {-1, 4};
     l = raw_l; h = raw_h;
 
     // Constant parameter from the problem: ME^T
     float** E = (float**) malloc( sizeof(float*)*col_num );
-    for (int i = 0; i < row_num; i++){
+    for (int i = 0; i < col_num; i++){
         *(E+i) = (float*)malloc(sizeof(float)*row_num);
     }
 
@@ -92,16 +93,16 @@ int main(int argc, char**argv) {
     print_1d_array(row_num,x);
 
     // Initialize Ex
-    // float* Ex = (float*)malloc(sizeof(float)*col_num);
-    // Ex = mat_mul_vec(col_num,row_num, E, x);
-    // printf("Vector Ex: \n"); fflush(stdout);
-    // print_1d_array(col_num,Ex);
+    float* Ex = (float*)malloc(sizeof(float)*col_num);
+    Ex = mat_mul_vec(col_num,row_num, E, x);
+    printf("Vector Ex: \n"); fflush(stdout);
+    print_1d_array(col_num,Ex);
 
     // Initialize g_Ex_u
-    // float* g_Ex_u = (float*)malloc(sizeof(float)*col_num);
-    // g_Ex_u = g_function(col_num, vec_add_vec(col_num,Ex,u_0_minus),l,h);
-    // printf("Vector g_Ex_u: \n"); fflush(stdout);
-    // print_1d_array(col_num,g_Ex_u);
+    float* g_Ex_u = (float*)malloc(sizeof(float)*col_num);
+    g_Ex_u = g_function(col_num, vec_add_vec(col_num,Ex,u_0_minus),l,h);
+    printf("Vector g_Ex_u: \n"); fflush(stdout);
+    print_1d_array(col_num,g_Ex_u);
     // bool tolerance_met = false;
     // while (!tolerance_met)
     // {
