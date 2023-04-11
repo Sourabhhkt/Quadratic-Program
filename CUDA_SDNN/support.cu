@@ -133,15 +133,12 @@ float* mat_mul_vec(int _r, int _c, float** _A,float* _vec)
 
 float* vec_add_vec(int _r, float* _vec1,float* _vec2)
 {
-  int _i,_j;
+  int _j;
   float* ans_vec = (float*)malloc(sizeof(float)*_r);;
   float _s = 0;
   for (_j = 0; _j < _c; _j++){
-      _s = _vec1[_j] + _vec2[_j];
-      // printf("%f ",_A[_i][_j]*_B[_j][_k]);
-      // printf("A[%d][%d] x B[%d][%d] = %.3f x %.3f = %f \n",_i,_j,_j,_k, _A[_i][_j],_B[_j][_k],_A[_i][_j]*_B[_j][_k]);
+    ans_vec[_j] = _s;    = _vec1[_j] + _vec2[_j];
   }
-  ans_vec[_i] = _s;   
   // print_1d_array(_r, ans_vec);
   return ans_vec;
 }
