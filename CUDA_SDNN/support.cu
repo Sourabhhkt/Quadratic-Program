@@ -115,9 +115,10 @@ float* g_function(int num_dim, float* z,  float* l,  float* h )
 
 float* mat_mul_vec(int _r, int _c, float** _A,float* _vec)
 {
-  int _i,_j
+  int _i,_j;
   float ans_arr[_r];
-  for (_i = 0; _i < _r; _i++){
+  for (_i = 0; _i < _r; _i++)
+  {
     float _s = 0;
     for (_j = 0; _j < _c; _j++){
         _s = _s + _A[_i][_j]*_vec[_j];
