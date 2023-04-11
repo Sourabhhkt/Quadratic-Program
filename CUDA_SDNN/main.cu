@@ -56,11 +56,10 @@ int main(int argc, char**argv) {
     for (int i = 0; i < col_num; i++){
         *(E+i) = (float*)malloc(sizeof(float)*row_num);
     }
-
     E[0][0] =  -1; E[0][1] =  1; E[0][2] =  0; E[0][3] =  0;
     E[1][0] =  3; E[1][1] =  0; E[1][2] =  1; E[1][3] =  0;
     printf("Matrix E: \n"); fflush(stdout);
-    print_2d_array(row_num,col_num,E);
+    print_2d_array(col_num,row_num,E);
 
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
