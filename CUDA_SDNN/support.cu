@@ -134,8 +134,7 @@ float* mat_mul_vec(int _r, int _c, float** _A,float* _vec)
 float* vec_add_vec(int _r, float* _vec1,float* _vec2)
 {
   int _j;
-  float* ans_vec = (float*)malloc(sizeof(float)*_r);;
-  float _s = 0;
+  float* ans_vec = (float*)malloc(sizeof(float)*_r);
   for (_j = 0; _j < _c; _j++){
     ans_vec[_j] = _vec1[_j] + _vec2[_j];
   }
