@@ -135,7 +135,7 @@ float* vec_add_vec(int _r, float* _vec1,float* _vec2)
 {
   int _j;
   float* ans_vec = (float*)malloc(sizeof(float)*_r);
-  for (_j = 0; _j < _c; _j++){
+  for (_j = 0; _j < _r; _j++){
     ans_vec[_j] = _vec1[_j] + _vec2[_j];
   }
   // print_1d_array(_r, ans_vec);
