@@ -20,6 +20,7 @@ void print_1d_array(int _c, float* arr);
 void print_1d_array_usint(int _c, unsigned int* arr);
 void print_2d_array(int _r, int _c, float** arr);
 float* g_function(int num_dim, float* z,  float* l,  float* h );
+float* mat_mul_vec(int _r, int _c, float** _A,float* _vec);
 #ifdef __cplusplus
 }
 #endif

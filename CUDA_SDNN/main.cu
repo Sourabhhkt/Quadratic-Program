@@ -28,13 +28,21 @@ int main(int argc, char**argv) {
     
     // W_inv = np.linalg.inv(W)
 
+    //     ME_T = 
+    //  [[-0.01105294  0.07155323]
+    //  [ 0.03548575 -0.01919721]
+    //  [-0.05759162  0.16230366]
+    //  [ 0.02443281  0.05235602]]
+    // s = 
+    //  [0.26236184 0.26294357 0.2617801  0.52530541]
+
     // Initialize host variables ----------------------------------------------
 
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
     
     int row_num = 4;
-    int col_num = 4;
+    int col_num = 2;
 
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
@@ -42,19 +50,38 @@ int main(int argc, char**argv) {
         *(ME_T+i) = (float*)malloc(sizeof(float)*col_num);
     }
 
-    ME_T[0][0] =  1; ME_T[0][1] =  7; ME_T[0][2] =  8; ME_T[0][3] =  4; 
-    ME_T[1][0] =  1; ME_T[1][1] =  7; ME_T[1][2] =  8; ME_T[1][3] =  4; 
-    ME_T[2][0] =  1; ME_T[2][1] =  7; ME_T[2][2] =  8; ME_T[2][3] =  4; 
-    ME_T[3][0] =  1; ME_T[3][1] =  7; ME_T[3][2] =  8; ME_T[3][3] =  4; 
+    ME_T[0][0] =  -0.01105294; ME_T[0][1] =  0.07155323;
+    ME_T[1][0] =  0.03548575; ME_T[1][1] =  -0.01919721; 
+    ME_T[2][0] =  -0.05759162; ME_T[2][1] =  0.16230366; 
+    ME_T[3][0] =  0.02443281; ME_T[3][1] =  0.05235602; 
     printf("Matrix ME^T: \n"); fflush(stdout);
     print_2d_array(row_num,col_num,ME_T);
 
     // Constant parameter from the problem: s
-    float raw_vecS[] = {5, 5, 5, 5};
+    float raw_vecS[] = {0.26236184, 0.26294357, 0.2617801, 0.52530541};
     float* s = raw_vecS;
     
     printf("Vector s: \n"); fflush(stdout);
     print_1d_array(row_num,s);
+
+    // Initialize u and x variable
+    float raw_u[] = {10, -10};
+    float* u_0 = raw_u;
+
+    float* x = (float*)malloc(sizeof(float)*row_num);
+    x = mat_mul_vec(row_num, col_num, ME_T, u_0);
+
+
+    // bool tolerance_met = false;
+    // while (!tolerance_met)
+    // {
+
+    // }
+
+    
+
+
+
 
     // float* A_h = (float*) malloc( sizeof(float)*n );
     // for (unsigned int i=0; i < n; i++) { A_h[i] = (rand()%100)/100.00; }
