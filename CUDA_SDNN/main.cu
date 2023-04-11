@@ -44,6 +44,22 @@ int main(int argc, char**argv) {
     int row_num = 4;
     int col_num = 2;
 
+    // Constant parameter from the problem: l and h
+    float* l; float* h; 
+    float raw_l = {FLT_MIN, -2};float raw_h = {-1, 4};
+    l = raw_l; h = raw_h;
+
+    // Constant parameter from the problem: ME^T
+    float** E = (float**) malloc( sizeof(float*)*col_num );
+    for (int i = 0; i < row_num; i++){
+        *(E+i) = (float*)malloc(sizeof(float)*row_num);
+    }
+
+    E[0][0] =  -1; E[0][1] =  1; E[0][2] =  0; E[0][3] =  0;
+    E[1][0] =  3; E[1][1] =  0; E[1][2] =  1; E[1][3] =  0;
+    printf("Matrix E: \n"); fflush(stdout);
+    print_2d_array(row_num,col_num,E);
+
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
     for (int i = 0; i < row_num; i++){
@@ -65,22 +81,58 @@ int main(int argc, char**argv) {
     print_1d_array(row_num,s);
 
     // Initialize u and x variable
-    float raw_u[] = {10, -10};
+    float raw_u[] = {10, -10};float raw_u_minus[] = {-10, 10};
     float* u_0 = raw_u;
+    float* u_0_minus = raw_u_minus;
 
     float* x = (float*)malloc(sizeof(float)*row_num);
     x = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_0),s);
     printf("Vector ME^T*u0 + s: \n"); fflush(stdout);
     print_1d_array(row_num,x);
 
+    // Initialize Ex
+    float* Ex = (float*)malloc(sizeof(float)*col_num);
+    Ex = mat_mul_vec(col_num,row_num, E, x);
+    printf("Vector Ex: \n"); fflush(stdout);
+    print_1d_array(col_num,Ex);
 
+    // Initialize g_Ex_u
+    float* g_Ex_u = (float*)malloc(sizeof(float)*row_num);
+    g_Ex_u = g_function(row_num, vec_add_vec(row_num,Ex,u_0_minus))
+    printf("Vector g_Ex_u: \n"); fflush(stdout);
+    print_1d_array(col_num,g_Ex_u);
     // bool tolerance_met = false;
     // while (!tolerance_met)
     // {
 
     // }
 
-    
+    // Allocate device variables ----------------------------------------------
+
+    // printf("Allocating device variables..."); fflush(stdout);
+    // startTime(&timer);
+
+    // float* u_d;
+    // cuda_ret = cudaMalloc((void**) &u_d, sizeof(float)*col_num);
+	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+    // float* u_prev_d;
+    // cuda_ret = cudaMalloc((void**) &u_prev_d, sizeof(float)*col_num);
+	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+
+
+
+    // //INSERT CODE HERE for B and C
+    // float* B_d;
+    // cuda_ret = cudaMalloc((void**) &B_d, sizeof(float)*n);
+	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+    // float* C_d;
+    // cuda_ret = cudaMalloc((void**) &C_d, sizeof(float)*n);
+	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+    // cudaDeviceSynchronize();
 
 
 
