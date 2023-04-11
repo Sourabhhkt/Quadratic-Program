@@ -37,7 +37,7 @@ float elapsedTime(Timer timer) {
 void print_1d_array(int _c, float* arr){
   int j;
   for (j = 0; j < _c; j++){
-      printf("%.1f ",arr[j]);
+      printf("%.5f ",arr[j]);
   }
   printf("\n");
 }
@@ -54,7 +54,7 @@ void print_2d_array(int _r, int _c, float** arr){
   int i, j;
   for (i = 0; i < _r; i++){
       for (j = 0; j < _c; j++){
-          printf("%.3f ", arr[i][j]);
+          printf("%.5f ", arr[i][j]);
       }
       printf("\n");
   }
@@ -127,7 +127,22 @@ float* mat_mul_vec(int _r, int _c, float** _A,float* _vec)
     }
     ans_arr[_i] = _s;   
   }
-  print_1d_array(_r, ans_arr);
+  // print_1d_array(_r, ans_arr);
   return ans_arr;
+}
+
+float* vec_add_vec(int _r, float* _vec1,float* _vec2)
+{
+  int _i,_j;
+  float* ans_vec = (float*)malloc(sizeof(float)*_r);;
+  float _s = 0;
+  for (_j = 0; _j < _c; _j++){
+      _s = _vec1[_j] + _vec2[_j];
+      // printf("%f ",_A[_i][_j]*_B[_j][_k]);
+      // printf("A[%d][%d] x B[%d][%d] = %.3f x %.3f = %f \n",_i,_j,_j,_k, _A[_i][_j],_B[_j][_k],_A[_i][_j]*_B[_j][_k]);
+  }
+  ans_vec[_i] = _s;   
+  // print_1d_array(_r, ans_vec);
+  return ans_vec;
 }
 

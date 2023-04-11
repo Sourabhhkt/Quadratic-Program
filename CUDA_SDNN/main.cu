@@ -69,7 +69,9 @@ int main(int argc, char**argv) {
     float* u_0 = raw_u;
 
     float* x = (float*)malloc(sizeof(float)*row_num);
-    x = mat_mul_vec(row_num, col_num, ME_T, u_0);
+    x = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_0),s);
+    printf("Vector ME^T*u0 + s: \n"); fflush(stdout);
+    print_1d_array(row_num,x);
 
 
     // bool tolerance_met = false;
