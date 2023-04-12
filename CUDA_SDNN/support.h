@@ -24,6 +24,7 @@ float* mat_mul_vec(int _r, int _c, float** _A,float* _vec);
 float* vec_add_vec(int _r, float* _vec1,float* _vec2);
 float* scale_vec(int _r, float scaler, float* _vec);
 float* convert_2d_mat_to_1d_arr(int row_num, int col_num,float** ME_T);
+unsigned float vec_l1_norm(int col_num, float* gradient);
 #ifdef __cplusplus
 }
 #endif
