@@ -20,8 +20,4 @@ cd $PBS_O_WORKDIR
 module load cuda
 
 # Run the code
-./vecadd 1000 > myoutput.log
-./vecadd 10000 >> myoutput.log
-./vecadd 100000 >> myoutput.log
-./vecadd 1000000 >> myoutput.log
-./vecadd 10000000 >> myoutput.log
+./cudasdnnqpsolver > myoutput.log
