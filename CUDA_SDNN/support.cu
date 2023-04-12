@@ -171,5 +171,6 @@ float vec_l1_norm(int col_num, float* gradient){
   {
     ans += abs(gradient[j]);
   }
+  return ans;
 }
 
