@@ -22,6 +22,8 @@ void print_2d_array(int _r, int _c, float** arr);
 float* g_function(int num_dim, float* z,  float* l,  float* h );
 float* mat_mul_vec(int _r, int _c, float** _A,float* _vec);
 float* vec_add_vec(int _r, float* _vec1,float* _vec2);
+float* scale_vec(int _r, float scaler, float* _vec);
+float* convert_2d_mat_to_1d_arr(int row_num, int col_num,float** ME_T);
 #ifdef __cplusplus
 }
 #endif

@@ -7,6 +7,7 @@ int main(int argc, char**argv) {
 
     Timer timer;
     cudaError_t cuda_ret;
+    
     // Setting up input parameter for QP
     // W = np.array([
     //     [6, 3, 5, 0],
@@ -41,6 +42,9 @@ int main(int argc, char**argv) {
 
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
+    float EPSILON = 0.0001;
+    printf("EPSILON = %f s\n", EPSILON); fflush(stdout);
+
     
     int row_num = 4;
     int col_num = 2;
@@ -73,6 +77,9 @@ int main(int argc, char**argv) {
     ME_T[3][0] =  0.02443281; ME_T[3][1] =  0.05235602; 
     printf("Matrix ME^T: \n"); fflush(stdout);
     print_2d_array(row_num,col_num,ME_T);
+    float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*col_num);
+    ME_T_h_1d = convert_2d_mat_to_1d_arr(row_num, col_num, ME_T);
+
 
     // Constant parameter from the problem: s
     float raw_vecS[] = {0.26236184, 0.26294357, 0.2617801, 0.52530541};
@@ -83,151 +90,139 @@ int main(int argc, char**argv) {
 
     // Initialize u and x variable
     float raw_u[] = {10, -10};float raw_u_minus[] = {-10, 10};
-    float* u_0 = raw_u;
-    float* u_0_minus = raw_u_minus;
+    float* u_p_h = raw_u;
+    float* u_p_minus = raw_u_minus;
 
-    float* x = (float*)malloc(sizeof(float)*row_num);
-    x = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_0),s);
-    printf("Vector x = ME^T*u0 + s: \n"); fflush(stdout);
-    print_1d_array(row_num,x);
+    float* x_h = (float*)malloc(sizeof(float)*row_num);
+    float* x_p_h = (float*)malloc(sizeof(float)*row_num);
 
     // Initialize Ex
     float* Ex = (float*)malloc(sizeof(float)*col_num);
-    Ex = mat_mul_vec(col_num,row_num, E, x);
-    printf("Vector Ex: \n"); fflush(stdout);
-    print_1d_array(col_num,Ex);
-
+    
     // Initialize g_Ex_u
     float* g_Ex_u = (float*)malloc(sizeof(float)*col_num);
-    g_Ex_u = g_function(col_num, vec_add_vec(col_num,Ex,u_0_minus),l,h);
-    printf("Vector g_Ex_u: \n"); fflush(stdout);
-    print_1d_array(col_num,g_Ex_u);
-    // bool tolerance_met = false;
+    
+    // Initialize u_c_h
+    float* u_c_h = (float*)malloc(sizeof(float)*col_num);
+    
+
+
+    bool tolerance_met = false;
     // while (!tolerance_met)
     // {
+    for (int iter = 0; iter < 1000; iter++)
+    {
+        // calculate x_h
+        x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
+        printf("Vector x_h: \n"); fflush(stdout);
+        print_1d_array(row_num,x_h);
 
+        Ex = mat_mul_vec(col_num,row_num, E, x);
+        printf("Vector Ex: \n"); fflush(stdout);
+        print_1d_array(col_num,Ex);
+
+        g_Ex_u = g_function(col_num, vec_add_vec(col_num,Ex,u_p_minus),l,h);
+        printf("Vector g_Ex_u: \n"); fflush(stdout);
+        print_1d_array(col_num,g_Ex_u);
+
+
+        // u_c_h =vec_add_vec(col_num,u_p_h,scale_vec(col_num, EPSILON, vec_add_vec(col_num,g_Ex_u, scale_vec(col_num,-1, Ex)))
+        for (int _idx = 0; _idx< col_num; _idx++)
+        {
+            u_c_h[_idx] = u_p_h[_idx] + EPSILON*(g_Ex_u[_idx]-Ex[_idx])
+        }
+        printf("Vector u_c_h: \n"); fflush(stdout);
+        print_1d_array(col_num,u_c_h);
+
+
+        // Allocate device variables ----------------------------------------------
+        printf("Allocating device variables..."); fflush(stdout);
+        startTime(&timer);
+
+        float* x_d;
+        cuda_ret = cudaMalloc((void**) &x_d, sizeof(float)*row_num);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+        float* u_d;
+        cuda_ret = cudaMalloc((void**) &u_d, sizeof(float)*col_num);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+        float* ME_T_d; // this should be 2d mat stored in 1d (col-wised might be better)
+        cuda_ret = cudaMalloc((void**) &ME_T_d, sizeof(float)*row_num*col_num);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate ME_T device memory");
+
+        float* s_d;
+        cuda_ret = cudaMalloc((void**) &s, sizeof(float)*col_num);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+
+        cudaDeviceSynchronize();
+        stopTime(&timer); printf("%f s\n", elapsedTime(timer));
+
+        // Copy host variables to device ------------------------------------------
+        printf("Copying data from host to device..."); fflush(stdout);
+        startTime(&timer);
+        // x_current
+        cuda_ret = cudaMemcpy(x_d, x_h, sizeof(float)*row_num, cudaMemcpyHostToDevice);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        // u_current
+        cuda_ret = cudaMemcpy(u_d, u_c_h, sizeof(float)*col_num, cudaMemcpyHostToDevice);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        // ME_T_d
+        cuda_ret = cudaMemcpy(ME_T_d, ME_T_h_1d, sizeof(float)*row_num*col_num, cudaMemcpyHostToDevice);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        // s
+        cuda_ret = cudaMemcpy(s_d, s, sizeof(float)*col_num, cudaMemcpyHostToDevice);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+
+        cudaDeviceSynchronize();
+        stopTime(&timer); printf("%f s\n", elapsedTime(timer));
+
+        // Launch kernel ----------------------------------------------------------
+        printf("Launching kernel..."); fflush(stdout);
+        startTime(&timer);
+
+        const unsigned int THREADS_PER_BLOCK = 512;
+        const unsigned int numBlocks = (n - 1)/THREADS_PER_BLOCK + 1;
+        dim3 gridDim(numBlocks, 1, 1), blockDim(THREADS_PER_BLOCK, 1, 1);
+        //INSERT CODE HERE to call kernel
+        sdnnIterationKernel<<<ceil(numBlocks),THREADS_PER_BLOCK>>>(x_d, u_d, ME_T_d, s_d, row_num, col_num);
+
+        cuda_ret = cudaDeviceSynchronize();
+        if(cuda_ret != cudaSuccess) FATAL("Unable to launch kernel");
+        stopTime(&timer); printf("%f s\n", elapsedTime(timer));
+
+        // Copy device variables to host ----------------------------------------
+        printf("Copying data from device to host..."); fflush(stdout);
+        startTime(&timer);
+        // x_current
+        cuda_ret = cudaMemcpy(x_h, x_d, sizeof(float)*row_num, cudaMemcpyDeviceToHost);
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory back to host");
+
+        cudaDeviceSynchronize();
+        stopTime(&timer); printf("%f s\n", elapsedTime(timer));
+
+        // Close kernel & free memory
+        cudaFree(u_d);
+        cudaFree(x_d);
+
+        // Tolerance verification
+        printf("Tolerance check..."); fflush(stdout);
+        float* gradient = vec_add_vec(row_num,g_Ex_u,scale_vec(col_num,-1, Ex));
+        unsigned float tol = vec_l1_norm(row_num, gradient);
+        if (tol < 0.000001)
+        {
+            tolerance_met = true;
+        }
+        printf("Tol = %f \n", tol);
+
+        // Updating rule
+        // u_p_h
+        u_p_h = u_c_h;
+        u_p_minus = minus_vec(col_num,u_p_h);
+        x_p_h = x_h;
+
+    }
     // }
-
-    // Allocate device variables ----------------------------------------------
-
-    // printf("Allocating device variables..."); fflush(stdout);
-    // startTime(&timer);
-
-    // float* u_d;
-    // cuda_ret = cudaMalloc((void**) &u_d, sizeof(float)*col_num);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-    // float* u_prev_d;
-    // cuda_ret = cudaMalloc((void**) &u_prev_d, sizeof(float)*col_num);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-
-
-
-    // //INSERT CODE HERE for B and C
-    // float* B_d;
-    // cuda_ret = cudaMalloc((void**) &B_d, sizeof(float)*n);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-    // float* C_d;
-    // cuda_ret = cudaMalloc((void**) &C_d, sizeof(float)*n);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-    // cudaDeviceSynchronize();
-
-
-
-
-    // float* A_h = (float*) malloc( sizeof(float)*n );
-    // for (unsigned int i=0; i < n; i++) { A_h[i] = (rand()%100)/100.00; }
-
-    // float* B_h = (float*) malloc( sizeof(float)*n );
-    // for (unsigned int i=0; i < n; i++) { B_h[i] = (rand()%100)/100.00; }
-
-    // float* C_h = (float*) malloc( sizeof(float)*n );
-
-    // stopTime(&timer); printf("%f s\n", elapsedTime(timer));
-    // printf("    Vector size = %u\n", n);
-
-    // // Allocate device variables ----------------------------------------------
-
-    // printf("Allocating device variables..."); fflush(stdout);
-    // startTime(&timer);
-
-    // float* A_d;
-    // cuda_ret = cudaMalloc((void**) &A_d, sizeof(float)*n);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-    // //INSERT CODE HERE for B and C
-    // float* B_d;
-    // cuda_ret = cudaMalloc((void**) &B_d, sizeof(float)*n);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-    // float* C_d;
-    // cuda_ret = cudaMalloc((void**) &C_d, sizeof(float)*n);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
-
-    // cudaDeviceSynchronize();
-    // stopTime(&timer); printf("%f s\n", elapsedTime(timer));
-
-    // // Copy host variables to device ------------------------------------------
-
-    // printf("Copying data from host to device..."); fflush(stdout);
-    // startTime(&timer);
-
-    // cuda_ret = cudaMemcpy(A_d, A_h, sizeof(float)*n, cudaMemcpyHostToDevice);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
-
-    // //INSERT CODE HERE for B
-    // cuda_ret = cudaMemcpy(B_d, B_h, sizeof(float)*n, cudaMemcpyHostToDevice);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
-
-    // cudaDeviceSynchronize();
-    // stopTime(&timer); printf("%f s\n", elapsedTime(timer));
-
-    // // Launch kernel ----------------------------------------------------------
-
-    // printf("Launching kernel..."); fflush(stdout);
-    // startTime(&timer);
-
-    // const unsigned int THREADS_PER_BLOCK = 512;
-    // const unsigned int numBlocks = (n - 1)/THREADS_PER_BLOCK + 1;
-    // dim3 gridDim(numBlocks, 1, 1), blockDim(THREADS_PER_BLOCK, 1, 1);
-    // //INSERT CODE HERE to call kernel
-    // vecAddKernel<<<ceil(numBlocks),THREADS_PER_BLOCK>>>(A_d, B_d, C_d, n);
-
-    // cuda_ret = cudaDeviceSynchronize();
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to launch kernel");
-    // stopTime(&timer); printf("%f s\n", elapsedTime(timer));
-
-    // // Copy device variables from host ----------------------------------------
-
-    // printf("Copying data from device to host..."); fflush(stdout);
-    // startTime(&timer);
-
-    // //INSERT CODE HERE to copy C
-    // cuda_ret = cudaMemcpy(C_h, C_d, sizeof(float)*n, cudaMemcpyDeviceToHost);
-	// if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
-
-    // cudaDeviceSynchronize();
-    // stopTime(&timer); printf("%f s\n", elapsedTime(timer));
-
-    // // Verify correctness -----------------------------------------------------
-
-    // printf("Verifying results..."); fflush(stdout);
-
-    // verify(A_h, B_h, C_h, n);
-
-    // // Free memory ------------------------------------------------------------
-
-    // free(A_h);
-    // free(B_h);
-    // free(C_h);
-
-    // //INSERT CODE HERE to free device matrices
-    // cudaFree(A_d);
-    // cudaFree(B_d);
-    // cudaFree(C_d);
 
     return 0;
 

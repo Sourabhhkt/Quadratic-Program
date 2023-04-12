@@ -142,3 +142,26 @@ float* vec_add_vec(int _r, float* _vec1,float* _vec2)
   return ans_vec;
 }
 
+float* scale_vec(int _r, float scaler, float* _vec)
+{
+  int _j;
+  float* ans_vec = (float*)malloc(sizeof(float)*_r);
+  for (_j = 0; _j < _r; _j++){
+    ans_vec[_j] = scaler*_vec[_j];
+  }
+  // print_1d_array(_r, ans_vec);
+  return ans_vec;
+}
+
+float* convert_2d_mat_to_1d_arr(int row_num, int col_num,float** ME_T){
+  float* mat_1d = (float*) malloc( sizeof(float)*row_num*col_num);
+  for (int i = 0; i < row_num; i++)
+  {
+    for (int j = 0; j < col_num; j++)
+    {
+      mat_1d[i*row_num + j] = ME_T[i][j];
+    }
+  }
+  return mat_1d;
+}
+
