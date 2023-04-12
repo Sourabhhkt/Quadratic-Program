@@ -46,7 +46,7 @@ int main(int argc, char**argv) {
     printf("EPSILON = %f s\n", EPSILON); fflush(stdout);
 
     
-    int row_num = 4;
+    int row_num = 4; // this define dim of x
     int col_num = 2;
 
     // Constant parameter from the problem: l and h
@@ -117,7 +117,7 @@ int main(int argc, char**argv) {
         printf("Vector x_h: \n"); fflush(stdout);
         print_1d_array(row_num,x_h);
 
-        Ex = mat_mul_vec(col_num,row_num, E, x);
+        Ex = mat_mul_vec(col_num,row_num, E, x_h);
         printf("Vector Ex: \n"); fflush(stdout);
         print_1d_array(col_num,Ex);
 
@@ -129,7 +129,7 @@ int main(int argc, char**argv) {
         // u_c_h =vec_add_vec(col_num,u_p_h,scale_vec(col_num, EPSILON, vec_add_vec(col_num,g_Ex_u, scale_vec(col_num,-1, Ex)))
         for (int _idx = 0; _idx< col_num; _idx++)
         {
-            u_c_h[_idx] = u_p_h[_idx] + EPSILON*(g_Ex_u[_idx]-Ex[_idx])
+            u_c_h[_idx] = u_p_h[_idx] + EPSILON*(g_Ex_u[_idx]-Ex[_idx]);
         }
         printf("Vector u_c_h: \n"); fflush(stdout);
         print_1d_array(col_num,u_c_h);
@@ -152,7 +152,7 @@ int main(int argc, char**argv) {
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate ME_T device memory");
 
         float* s_d;
-        cuda_ret = cudaMalloc((void**) &s, sizeof(float)*col_num);
+        cuda_ret = cudaMalloc((void**) &s_d, sizeof(float)*col_num);
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
 
         cudaDeviceSynchronize();
@@ -182,7 +182,7 @@ int main(int argc, char**argv) {
         startTime(&timer);
 
         const unsigned int THREADS_PER_BLOCK = 512;
-        const unsigned int numBlocks = (n - 1)/THREADS_PER_BLOCK + 1;
+        const unsigned int numBlocks = (row_num - 1)/THREADS_PER_BLOCK + 1;
         dim3 gridDim(numBlocks, 1, 1), blockDim(THREADS_PER_BLOCK, 1, 1);
         //INSERT CODE HERE to call kernel
         sdnnIterationKernel<<<ceil(numBlocks),THREADS_PER_BLOCK>>>(x_d, u_d, ME_T_d, s_d, row_num, col_num);
@@ -207,8 +207,8 @@ int main(int argc, char**argv) {
 
         // Tolerance verification
         printf("Tolerance check..."); fflush(stdout);
-        float* gradient = vec_add_vec(row_num,g_Ex_u,scale_vec(col_num,-1, Ex));
-        unsigned float tol = vec_l1_norm(row_num, gradient);
+        float* gradient = vec_add_vec(col_num, g_Ex_u, scale_vec(col_num,-1, Ex));
+        unsigned float tol = vec_l1_norm(col_num, gradient);
         if (tol < 0.000001)
         {
             tolerance_met = true;
@@ -218,7 +218,7 @@ int main(int argc, char**argv) {
         // Updating rule
         // u_p_h
         u_p_h = u_c_h;
-        u_p_minus = minus_vec(col_num,u_p_h);
+        u_p_minus = scale_vec(col_num,-1,u_p_h);
         x_p_h = x_h;
 
     }
