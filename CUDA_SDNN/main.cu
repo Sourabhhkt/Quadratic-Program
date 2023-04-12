@@ -141,11 +141,11 @@ int main(int argc, char**argv) {
 
         float* x_d;
         cuda_ret = cudaMalloc((void**) &x_d, sizeof(float)*row_num);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate x_d device memory");
 
         float* u_d;
         cuda_ret = cudaMalloc((void**) &u_d, sizeof(float)*col_num);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate u_d device memory");
 
         float* ME_T_d; // this should be 2d mat stored in 1d (col-wised might be better)
         cuda_ret = cudaMalloc((void**) &ME_T_d, sizeof(float)*row_num*col_num);
@@ -153,7 +153,7 @@ int main(int argc, char**argv) {
 
         float* s_d;
         cuda_ret = cudaMalloc((void**) &s_d, sizeof(float)*col_num);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate device memory");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to allocate s_d device memory");
 
         cudaDeviceSynchronize();
         stopTime(&timer); printf("%f s\n", elapsedTime(timer));
@@ -163,16 +163,16 @@ int main(int argc, char**argv) {
         startTime(&timer);
         // x_current
         cuda_ret = cudaMemcpy(x_d, x_h, sizeof(float)*row_num, cudaMemcpyHostToDevice);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory x_h to x_d device");
         // u_current
         cuda_ret = cudaMemcpy(u_d, u_c_h, sizeof(float)*col_num, cudaMemcpyHostToDevice);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory u_c_h to u_d device");
         // ME_T_d
         cuda_ret = cudaMemcpy(ME_T_d, ME_T_h_1d, sizeof(float)*row_num*col_num, cudaMemcpyHostToDevice);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory ME_T_h_1d to ME_T_d device");
         // s
         cuda_ret = cudaMemcpy(s_d, s, sizeof(float)*col_num, cudaMemcpyHostToDevice);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory to device");
+        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory s to s_d device");
 
         cudaDeviceSynchronize();
         stopTime(&timer); printf("%f s\n", elapsedTime(timer));
