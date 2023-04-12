@@ -208,7 +208,7 @@ int main(int argc, char**argv) {
         // Tolerance verification
         printf("Tolerance check..."); fflush(stdout);
         float* gradient = vec_add_vec(col_num, g_Ex_u, scale_vec(col_num,-1, Ex));
-        unsigned float tol = vec_l1_norm(col_num, gradient);
+        float tol = vec_l1_norm(col_num, gradient);
         if (tol < 0.000001)
         {
             tolerance_met = true;

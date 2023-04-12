@@ -165,8 +165,8 @@ float* convert_2d_mat_to_1d_arr(int row_num, int col_num,float** ME_T){
   return mat_1d;
 }
 
-unsigned float vec_l1_norm(int col_num, float* gradient){
-  unsigned float ans;
+float vec_l1_norm(int col_num, float* gradient){
+  float ans;
   for (int j = 0; j < col_num; j++)
   {
     ans += abs(gradient[j]);
