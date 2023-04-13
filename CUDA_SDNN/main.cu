@@ -190,8 +190,8 @@ int main(int argc, char**argv) {
         printf("Copying data from host to device..."); fflush(stdout);
         startTime(&timer);
         // x_current
-        cuda_ret = cudaMemcpy(x_d, x_h, sizeof(float)*row_num, cudaMemcpyHostToDevice);
-        if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory x_h to x_d device");
+        // cuda_ret = cudaMemcpy(x_d, x_h, sizeof(float)*row_num, cudaMemcpyHostToDevice);
+        // if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory x_h to x_d device");
         // u_current
         cuda_ret = cudaMemcpy(u_d, u_c_h, sizeof(float)*col_num, cudaMemcpyHostToDevice);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory u_c_h to u_d device");
