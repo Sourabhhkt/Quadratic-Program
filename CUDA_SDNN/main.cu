@@ -42,7 +42,7 @@ int main(int argc, char**argv) {
 
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
-    float EPSILON = 0.0001;
+    float EPSILON = atof(argv[argc-1]);
     printf("EPSILON = %f s\n", EPSILON); fflush(stdout);
 
     
