@@ -118,6 +118,7 @@ int main(int argc, char**argv) {
 
     float* x_h = (float*)malloc(sizeof(float)*row_num);
     float* x_p_h = (float*)malloc(sizeof(float)*row_num);
+    x_p_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
 
     float* x_optimal = (float*)malloc(sizeof(float)*row_num);
 
@@ -143,12 +144,8 @@ int main(int argc, char**argv) {
     // {
         start = clock();
         printf("Iter: [%d] ========================================\n",iter_count); fflush(stdout);
-        // calculate x_h
-        x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
-        printf("Vector x_h: \n"); fflush(stdout);
-        print_1d_array(row_num,x_h);
-
-        Ex = mat_mul_vec(col_num,row_num, E, x_h);
+        
+        Ex = mat_mul_vec(col_num,row_num, E, x_p_h);
         printf("Vector Ex: \n"); fflush(stdout);
         print_1d_array(col_num,Ex);
 
@@ -229,6 +226,11 @@ int main(int argc, char**argv) {
         cuda_ret = cudaMemcpy(x_h, x_d, sizeof(float)*row_num, cudaMemcpyDeviceToHost);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory back to host");
 
+        // calculate x_h
+        // x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
+        printf("Vector x_h: \n"); fflush(stdout);
+        print_1d_array(row_num,x_h);
+
         cudaDeviceSynchronize();
         stopTime(&timer); printf("%f s\n", elapsedTime(timer));
 
@@ -281,9 +283,9 @@ int main(int argc, char**argv) {
 
     printf("\n========================================\n"); fflush(stdout);
     printf("-----Terminating condition------\n");
-    printf("Iteration_lim_met = %s", iteration_lim_met ? "true " : "false ");
-    printf("Time_lim_met = %s", time_lim_met ? "true " : "false ");
-    printf("Tolerance_met = %s", tolerance_met ? "true " : "false ");
+    printf("Iteration_lim_met = %s", iteration_lim_met ? "true \n" : "false \n");
+    printf("Time_lim_met = %s", time_lim_met ? "true \n" : "false \n");
+    printf("Tolerance_met = %s", tolerance_met ? "true \n" : "false \n");
     printf("-----Computational resource summary------\n");
     printf("#Iteration = %d \n", iter_count );
     printf("Time used = %f \n", cpu_time_used );
