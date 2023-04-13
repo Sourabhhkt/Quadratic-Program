@@ -64,8 +64,9 @@ int main(int argc, char**argv) {
         TIMELIMINSEC = 120; // 2mins
     }
      
-    
     printf("EPSILON = %f \n", EPSILON); fflush(stdout);
+    printf("ITERATIONLIM = %d \n", ITERATIONLIM); fflush(stdout);
+    printf("TIMELIMINSEC = %f \n", TIMELIMINSEC); fflush(stdout);
 
     
     int row_num = 4; // this define dim of x
