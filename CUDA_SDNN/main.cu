@@ -2,10 +2,13 @@
 #include "support.h"
 #include "kernel.cu"
 #include <float.h>
+#include <time.h>
 
 int main(int argc, char**argv) {
 
     Timer timer;
+    clock_t start, end;
+    double cpu_time_used;
     cudaError_t cuda_ret;
     
     // Setting up input parameter for QP
@@ -42,16 +45,23 @@ int main(int argc, char**argv) {
 
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
-    float EPSILON; int ITERATIONLIM;
+    float EPSILON; int ITERATIONLIM; double TIMELIMINSEC;
     if (argc==2){
         EPSILON = atof(argv[1]);
         ITERATIONLIM = 100;
+        TIMELIMINSEC = 120; // 2mins
     } else if (argc==3){
         EPSILON = atof(argv[1]);
         ITERATIONLIM = atof(argv[2]);
+        TIMELIMINSEC = 120; // 2mins
+    } else if (argc==4){
+        EPSILON = atof(argv[1]);
+        ITERATIONLIM = atof(argv[2]);
+        TIMELIMINSEC = strtod(argv[3]);
     } else{
         EPSILON = 1;
         ITERATIONLIM = 100;
+        TIMELIMINSEC = 120; // 2mins
     }
      
     
@@ -108,6 +118,8 @@ int main(int argc, char**argv) {
     float* x_h = (float*)malloc(sizeof(float)*row_num);
     float* x_p_h = (float*)malloc(sizeof(float)*row_num);
 
+    float* x_optimal = (float*)malloc(sizeof(float)*row_num);
+
     // Initialize Ex
     float* Ex = (float*)malloc(sizeof(float)*col_num);
     
@@ -117,13 +129,18 @@ int main(int argc, char**argv) {
     // Initialize u_c_h
     float* u_c_h = (float*)malloc(sizeof(float)*col_num);
     
-
+    int iter_count = 0;
 
     bool tolerance_met = false;
-    // while (!tolerance_met)
-    // {
-    for (int iter = 0; iter < ITERATIONLIM; iter++)
+    bool iteration_lim_met = false;
+    bool time_lim_met = false;
+
+    
+    while ((!tolerance_met )& (!iteration_lim_met)&(!time_lim_met))
     {
+    // for (int iter = 0; iter < ITERATIONLIM; iter++)
+    // {
+        start = clock();
         printf("Iter: [%d] ========================================\n",iter); fflush(stdout);
         // calculate x_h
         x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
@@ -218,6 +235,23 @@ int main(int argc, char**argv) {
         cudaFree(u_d);
         cudaFree(x_d);
 
+        // Iteration check
+        if (iter_count >= ITERATIONLIM)
+        {
+            iteration_lim_met = true;
+            printf("Iter count limit reached! %d", iter_count); fflush(stdout);
+        }
+
+        // Time limit check
+        end = clock();
+        iter_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        cpu_time_used+=iter_time;
+        if (cpu_time_used >= TIMELIMINSEC)
+        {
+            time_lim_met = true;
+            printf("Time limit reached! %d", cpu_time_used); fflush(stdout);
+        }
+
         // Tolerance verification
         printf("Tolerance check..."); fflush(stdout);
         float* gradient = vec_add_vec(col_num, g_Ex_u, scale_vec(col_num,-1, Ex));
@@ -225,6 +259,7 @@ int main(int argc, char**argv) {
         if (tol < 0.000001)
         {
             tolerance_met = true;
+            x_optimal = x_h;
         }
         printf("Tol = %f \n", tol);
 
@@ -234,13 +269,15 @@ int main(int argc, char**argv) {
         u_p_minus = scale_vec(col_num,-1,u_p_h);
         x_p_h = x_h;
 
+        iter_count++;
+
     }
     // get final solution
 
     printf("========================================\n"); fflush(stdout);
     printf("Tolerance_met = %s", tolerance_met ? "true" : "false");
     // printf("Optimal obj:%f s\n", );
-    printf("Optimal sol X: \n"); print_1d_array(row_num,x_h);
+    printf("Optimal sol X: \n"); print_1d_array(row_num,x_optimal);
 
     printf("========================================"); fflush(stdout);
 
