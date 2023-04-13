@@ -145,6 +145,9 @@ int main(int argc, char**argv) {
         start = clock();
         printf("Iter: [%d] ========================================\n",iter_count); fflush(stdout);
         
+        printf("Vector x_p_h: \n"); fflush(stdout);
+        print_1d_array(row_num,x_p_h);
+
         Ex = mat_mul_vec(col_num,row_num, E, x_p_h);
         printf("Vector Ex: \n"); fflush(stdout);
         print_1d_array(col_num,Ex);
@@ -243,7 +246,7 @@ int main(int argc, char**argv) {
         if (iter_count >= ITERATIONLIM)
         {
             iteration_lim_met = true;
-            printf("Iter count limit reached! %d", iter_count); fflush(stdout);
+            printf("Iter count limit reached! %d\n", iter_count); fflush(stdout);
         }
 
         // Time limit check
@@ -253,7 +256,7 @@ int main(int argc, char**argv) {
         if (cpu_time_used >= TIMELIMINSEC)
         {
             time_lim_met = true;
-            printf("Time limit reached! %f", cpu_time_used); fflush(stdout);
+            printf("Time limit reached! %f\n", cpu_time_used); fflush(stdout);
         }
 
         // Tolerance verification
@@ -263,7 +266,7 @@ int main(int argc, char**argv) {
         if (tol < 0.000001)
         {
             tolerance_met = true;
-            printf("Tolerance limit reached! %f", tol); fflush(stdout);
+            printf("Tolerance limit reached! %f\n", tol); fflush(stdout);
             for (int _dim = 0; _dim < row_num; _dim++){
                 x_optimal[_dim] = x_h[_dim]; //copy the value!
             }
