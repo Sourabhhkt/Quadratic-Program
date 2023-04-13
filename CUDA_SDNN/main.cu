@@ -215,7 +215,6 @@ int main(int argc, char**argv) {
         const unsigned int THREADS_PER_BLOCK = 512;
         const unsigned int numBlocks = (row_num - 1)/THREADS_PER_BLOCK + 1;
         printf("Num blocks: %d, Num threads per block: %d \n",numBlocks,THREADS_PER_BLOCK);
-        dim3 gridDim(numBlocks, 1, 1), blockDim(THREADS_PER_BLOCK, 1, 1);
         //INSERT CODE HERE to call kernel
         sdnnIterationKernel<<<ceil(numBlocks),THREADS_PER_BLOCK>>>(x_d, u_d, ME_T_d, s_d, row_num, col_num);
 
@@ -230,7 +229,7 @@ int main(int argc, char**argv) {
         cuda_ret = cudaMemcpy(x_h, x_d, sizeof(float)*row_num, cudaMemcpyDeviceToHost);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory back to host");
 
-        cudaDeviceSynchronize();
+        // cudaDeviceSynchronize();
         stopTime(&timer); printf("%f s\n", elapsedTime(timer));
         // calculate x_h
         // x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
@@ -268,6 +267,7 @@ int main(int argc, char**argv) {
             printf("Tolerance limit reached! %f\n", tol); fflush(stdout);
             for (int _dim = 0; _dim < row_num; _dim++){
                 x_optimal[_dim] = x_h[_dim]; //copy the value!
+                printf("x(%d) =  %f\n", _dim, x_h[_dim]);
             }
             printf("Optimal sol X after copy: \n");
             print_1d_array(row_num,x_optimal);
