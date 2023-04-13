@@ -263,6 +263,8 @@ int main(int argc, char**argv) {
             for (int _dim = 0; _dim < row_num; _dim++){
                 x_optimal[_dim] = x_h[_dim]; //copy the value!
             }
+            printf("Optimal sol X after copy: \n");
+            print_1d_array(row_num,x_optimal);
             
         }
         printf("Tol = %f \n", tol);
@@ -274,22 +276,22 @@ int main(int argc, char**argv) {
         x_p_h = x_h;
 
         iter_count++;
-
     }
     // get final solution
 
-    printf("========================================\n"); fflush(stdout);
+    printf("\n========================================\n"); fflush(stdout);
+    printf("-----Terminating condition------\n")
     printf("Iteration_lim_met = %s", iteration_lim_met ? "true " : "false ");
-    printf("#Iteration = %d \n", iter_count );
-
     printf("Time_lim_met = %s", time_lim_met ? "true " : "false ");
-    printf("Time used = %f \n", cpu_time_used );
-
     printf("Tolerance_met = %s", tolerance_met ? "true " : "false ");
+    printf("-----Computational resource summary------\n")
+    printf("#Iteration = %d \n", iter_count );
+    printf("Time used = %f \n", cpu_time_used );
     printf("Tolerance = %f \n", tol );
     // printf("Optimal obj:%f s\n", );
+    printf("-----Solution received------\n")
     printf("Optimal sol X: \n"); print_1d_array(row_num,x_optimal);
-    printf("========================================"); fflush(stdout);
+    printf("========================================\n"); fflush(stdout);
 
     // }
 
