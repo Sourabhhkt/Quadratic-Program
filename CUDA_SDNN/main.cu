@@ -130,7 +130,7 @@ int main(int argc, char**argv) {
     // Initialize u_c_h
     float* u_c_h = (float*)malloc(sizeof(float)*col_num);
     
-    int iter_count = 0; float iter_time = 0;
+    int iter_count = 0; float iter_time = 0;float tol = FLT_MAX;
 
     bool tolerance_met = false;
     bool iteration_lim_met = false;
@@ -256,11 +256,11 @@ int main(int argc, char**argv) {
         // Tolerance verification
         printf("Tolerance check..."); fflush(stdout);
         float* gradient = vec_add_vec(col_num, g_Ex_u, scale_vec(col_num,-1, Ex));
-        float tol = vec_l1_norm(col_num, gradient);
+        tol = vec_l1_norm(col_num, gradient);
         if (tol < 0.000001)
         {
             tolerance_met = true;
-            for (int _dim = 0; dim < row_num; dim++){
+            for (int _dim = 0; _dim < row_num; _dim++){
                 x_optimal[_dim] = x_h[_dim]; //copy the value!
             }
             
