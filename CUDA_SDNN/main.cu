@@ -225,7 +225,8 @@ int main(int argc, char**argv) {
     // get final solution
 
     printf("========================================"); fflush(stdout);
-    printf("Optimal obj:%f s\n", )
+    printf("Tolerance_met =");prinf(tolerance_met);
+    printf("Optimal obj:%f s\n", );
     printf("Optimal sol X: \n"); print_1d_array(row_num,x_h);
 
     printf("========================================"); fflush(stdout);
