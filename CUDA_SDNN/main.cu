@@ -280,16 +280,16 @@ int main(int argc, char**argv) {
     // get final solution
 
     printf("\n========================================\n"); fflush(stdout);
-    printf("-----Terminating condition------\n")
+    printf("-----Terminating condition------\n");
     printf("Iteration_lim_met = %s", iteration_lim_met ? "true " : "false ");
     printf("Time_lim_met = %s", time_lim_met ? "true " : "false ");
     printf("Tolerance_met = %s", tolerance_met ? "true " : "false ");
-    printf("-----Computational resource summary------\n")
+    printf("-----Computational resource summary------\n");
     printf("#Iteration = %d \n", iter_count );
     printf("Time used = %f \n", cpu_time_used );
     printf("Tolerance = %f \n", tol );
     // printf("Optimal obj:%f s\n", );
-    printf("-----Solution received------\n")
+    printf("-----Solution received------\n");
     printf("Optimal sol X: \n"); print_1d_array(row_num,x_optimal);
     printf("========================================\n"); fflush(stdout);
 
