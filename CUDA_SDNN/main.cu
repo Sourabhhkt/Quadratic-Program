@@ -42,8 +42,20 @@ int main(int argc, char**argv) {
 
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
-    float EPSILON = atof(argv[argc-1]);
-    printf("EPSILON = %f s\n", EPSILON); fflush(stdout);
+    float EPSILON; int ITERATIONLIM;
+    if (argc==2){
+        EPSILON = atof(argv[1]);
+        ITERATIONLIM = 100;
+    } else if (argc==3){
+        EPSILON = atof(argv[1]);
+        ITERATIONLIM = atof(argv[2]);
+    } else{
+        EPSILON = 1;
+        ITERATIONLIM = 100;
+    }
+     
+    
+    printf("EPSILON = %f \n", EPSILON); fflush(stdout);
 
     
     int row_num = 4; // this define dim of x
@@ -110,7 +122,7 @@ int main(int argc, char**argv) {
     bool tolerance_met = false;
     // while (!tolerance_met)
     // {
-    for (int iter = 0; iter < 100; iter++)
+    for (int iter = 0; iter < ITERATIONLIM; iter++)
     {
         printf("Iter: [%d] ========================================\n",iter); fflush(stdout);
         // calculate x_h
