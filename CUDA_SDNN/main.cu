@@ -222,6 +222,14 @@ int main(int argc, char**argv) {
         x_p_h = x_h;
 
     }
+    // get final solution
+
+    printf("========================================"); fflush(stdout);
+    printf("Optimal obj:%f s\n", )
+    printf("Optimal sol X: \n"); print_1d_array(row_num,x_h);
+
+    printf("========================================"); fflush(stdout);
+
     // }
 
     return 0;
