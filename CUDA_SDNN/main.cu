@@ -102,7 +102,8 @@ int main(int argc, char**argv) {
     print_2d_array(row_num,col_num,ME_T);
     float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*col_num);
     ME_T_h_1d = convert_2d_mat_to_1d_arr(row_num, col_num, ME_T);
-
+    printf("Matrix ME^T_1d: \n"); fflush(stdout);
+    print_1d_array(row_num*col_num,ME_T_h_1d);
 
     // Constant parameter from the problem: s
     float raw_vecS[] = {0.26236184, 0.26294357, 0.2617801, 0.52530541};
