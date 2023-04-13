@@ -110,8 +110,9 @@ int main(int argc, char**argv) {
     bool tolerance_met = false;
     // while (!tolerance_met)
     // {
-    for (int iter = 0; iter < 1000; iter++)
+    for (int iter = 0; iter < 100; iter++)
     {
+        printf("Iter: [%d] ========================================\n",iter); fflush(stdout);
         // calculate x_h
         x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
         printf("Vector x_h: \n"); fflush(stdout);
@@ -224,7 +225,7 @@ int main(int argc, char**argv) {
     }
     // get final solution
 
-    printf("========================================"); fflush(stdout);
+    printf("========================================\n"); fflush(stdout);
     printf("Tolerance_met = %s", tolerance_met ? "true" : "false");
     // printf("Optimal obj:%f s\n", );
     printf("Optimal sol X: \n"); print_1d_array(row_num,x_h);
