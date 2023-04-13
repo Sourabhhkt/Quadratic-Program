@@ -230,13 +230,12 @@ int main(int argc, char**argv) {
         cuda_ret = cudaMemcpy(x_h, x_d, sizeof(float)*row_num, cudaMemcpyDeviceToHost);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory back to host");
 
+        cudaDeviceSynchronize();
+        stopTime(&timer); printf("%f s\n", elapsedTime(timer));
         // calculate x_h
         // x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
         printf("Vector x_h: \n"); fflush(stdout);
         print_1d_array(row_num,x_h);
-
-        cudaDeviceSynchronize();
-        stopTime(&timer); printf("%f s\n", elapsedTime(timer));
 
         // Close kernel & free memory
         cudaFree(u_d);
