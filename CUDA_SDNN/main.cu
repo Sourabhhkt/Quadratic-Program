@@ -234,7 +234,7 @@ int main(int argc, char**argv) {
 
         // Close kernel & free memory
         cudaFree(u_d);
-        cudaFree(x_d);
+        // cudaFree(x_d);
 
         // Iteration check
         if (iter_count >= ITERATIONLIM)
@@ -260,6 +260,7 @@ int main(int argc, char**argv) {
         if (tol < 0.000001)
         {
             tolerance_met = true;
+            printf("Tolerance limit reached! %f", tol); fflush(stdout);
             for (int _dim = 0; _dim < row_num; _dim++){
                 x_optimal[_dim] = x_h[_dim]; //copy the value!
             }
@@ -267,7 +268,6 @@ int main(int argc, char**argv) {
             print_1d_array(row_num,x_optimal);
             
         }
-        printf("Tol = %f \n", tol);
 
         // Updating rule
         // u_p_h
