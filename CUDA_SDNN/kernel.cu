@@ -18,11 +18,7 @@ __global__ void vecAddKernel(float* A, float* B, float* C, int n) {
 __global__ void sdnnIterationKernel(float* x_d, float* u_d, float*  ME_T_d, float* s_d, int row_num, int col_num) {
 
     // Calculate global thread index based on the block and thread indices ----
-
-    //INSERT KERNEL CODE HERE
     int i = blockDim.x*blockIdx.x + threadIdx.x;
-
-    //INSERT KERNEL CODE HERE
     if (i < row_num)
     {
         x_d[i] = s_d[i];

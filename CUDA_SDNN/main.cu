@@ -238,7 +238,7 @@ int main(int argc, char**argv) {
 
         // Close kernel & free memory
         cudaFree(u_d);
-        // cudaFree(x_d);
+        cudaFree(x_d);
 
         // Iteration check
         if (iter_count >= ITERATIONLIM)
@@ -295,7 +295,7 @@ int main(int argc, char**argv) {
     printf("Tolerance = %f \n", tol );
     // printf("Optimal obj:%f s\n", );
     printf("-----Solution received------\n");
-    printf("Optimal sol X: \n"); print_1d_array(row_num,x_optimal);
+    printf("Optimal sol X: \n"); print_1d_array(row_num,x_h);
     printf("========================================\n"); fflush(stdout);
 
     // }
