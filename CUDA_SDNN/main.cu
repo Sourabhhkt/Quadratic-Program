@@ -8,7 +8,7 @@ int main(int argc, char**argv) {
 
     Timer timer;
     clock_t start, end;
-    double cpu_time_used;
+    float cpu_time_used;
     cudaError_t cuda_ret;
     
     // Setting up input parameter for QP
@@ -45,7 +45,7 @@ int main(int argc, char**argv) {
 
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
-    float EPSILON; int ITERATIONLIM; double TIMELIMINSEC;
+    float EPSILON; int ITERATIONLIM; float TIMELIMINSEC;
     if (argc==2){
         EPSILON = atof(argv[1]);
         ITERATIONLIM = 100;
@@ -57,7 +57,7 @@ int main(int argc, char**argv) {
     } else if (argc==4){
         EPSILON = atof(argv[1]);
         ITERATIONLIM = atof(argv[2]);
-        TIMELIMINSEC = strtod(argv[3]);
+        TIMELIMINSEC = atof(argv[3]);
     } else{
         EPSILON = 1;
         ITERATIONLIM = 100;
@@ -244,12 +244,12 @@ int main(int argc, char**argv) {
 
         // Time limit check
         end = clock();
-        iter_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        iter_time = ((float) (end - start)) / CLOCKS_PER_SEC;
         cpu_time_used+=iter_time;
         if (cpu_time_used >= TIMELIMINSEC)
         {
             time_lim_met = true;
-            printf("Time limit reached! %d", cpu_time_used); fflush(stdout);
+            printf("Time limit reached! %f", cpu_time_used); fflush(stdout);
         }
 
         // Tolerance verification
