@@ -23,7 +23,7 @@ __global__ void sdnnIterationKernel(float* x_d, float* u_d, float*  ME_T_d, floa
         x_d[i] = s_d[i];
         for (int j = 0; j < col_num; j++)
         {
-            x_d[i] += (ME_T_d[i*row_num + j]*u_d[j]);
+            x_d[i] += (ME_T_d[i*col_num + j]*u_d[j]);
         }
     }
     __syncthreads();
