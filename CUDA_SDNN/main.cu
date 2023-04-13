@@ -129,7 +129,7 @@ int main(int argc, char**argv) {
     // Initialize u_c_h
     float* u_c_h = (float*)malloc(sizeof(float)*col_num);
     
-    int iter_count = 0;
+    int iter_count = 0; float iter_time = 0;
 
     bool tolerance_met = false;
     bool iteration_lim_met = false;
@@ -141,7 +141,7 @@ int main(int argc, char**argv) {
     // for (int iter = 0; iter < ITERATIONLIM; iter++)
     // {
         start = clock();
-        printf("Iter: [%d] ========================================\n",iter); fflush(stdout);
+        printf("Iter: [%d] ========================================\n",iter_count); fflush(stdout);
         // calculate x_h
         x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
         printf("Vector x_h: \n"); fflush(stdout);
