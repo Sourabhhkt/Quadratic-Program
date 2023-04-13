@@ -129,7 +129,7 @@ int main(int argc, char**argv) {
         // u_c_h =vec_add_vec(col_num,u_p_h,scale_vec(col_num, EPSILON, vec_add_vec(col_num,g_Ex_u, scale_vec(col_num,-1, Ex)))
         for (int _idx = 0; _idx< col_num; _idx++)
         {
-            u_c_h[_idx] = u_p_h[_idx] + EPSILON*(g_Ex_u[_idx]-Ex[_idx]);
+            u_c_h[_idx] = u_p_h[_idx] + (1/EPSILON)*(g_Ex_u[_idx]-Ex[_idx]);
         }
         printf("Vector u_c_h: \n"); fflush(stdout);
         print_1d_array(col_num,u_c_h);
