@@ -260,7 +260,10 @@ int main(int argc, char**argv) {
         if (tol < 0.000001)
         {
             tolerance_met = true;
-            x_optimal = x_h;
+            for (int _dim = 0; dim < row_num; dim++){
+                x_optimal[_dim] = x_h[_dim]; //copy the value!
+            }
+            
         }
         printf("Tol = %f \n", tol);
 
@@ -276,10 +279,16 @@ int main(int argc, char**argv) {
     // get final solution
 
     printf("========================================\n"); fflush(stdout);
-    printf("Tolerance_met = %s", tolerance_met ? "true" : "false");
+    printf("Iteration_lim_met = %s", iteration_lim_met ? "true " : "false ");
+    printf("#Iteration = %d \n", iter_count );
+
+    printf("Time_lim_met = %s", time_lim_met ? "true " : "false ");
+    printf("Time used = %f \n", cpu_time_used );
+
+    printf("Tolerance_met = %s", tolerance_met ? "true " : "false ");
+    printf("Tolerance = %f \n", tol );
     // printf("Optimal obj:%f s\n", );
     printf("Optimal sol X: \n"); print_1d_array(row_num,x_optimal);
-
     printf("========================================"); fflush(stdout);
 
     // }
