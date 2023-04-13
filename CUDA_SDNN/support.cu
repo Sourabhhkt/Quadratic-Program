@@ -159,7 +159,7 @@ float* convert_2d_mat_to_1d_arr(int row_num, int col_num,float** ME_T){
   {
     for (int j = 0; j < col_num; j++)
     {
-      mat_1d[i*row_num + j] = ME_T[i][j];
+      mat_1d[i*col_num + j] = ME_T[i][j];
     }
   }
   return mat_1d;
