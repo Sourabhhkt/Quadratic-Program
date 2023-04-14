@@ -184,7 +184,7 @@ int main(int argc, char**argv) {
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate ME_T device memory");
 
         float* s_d;
-        cuda_ret = cudaMalloc((void**) &s_d, sizeof(float)*col_num);
+        cuda_ret = cudaMalloc((void**) &s_d, sizeof(float)*row_num);
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate s_d device memory");
 
         cudaDeviceSynchronize();
