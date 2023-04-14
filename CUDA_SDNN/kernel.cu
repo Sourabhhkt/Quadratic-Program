@@ -24,6 +24,9 @@ __global__ void sdnnIterationKernel(float* x_d, float* u_d, float*  ME_T_d, floa
         for (int j = 0; j < col_num; j++)
         {
             x_d[i] += (ME_T_d[i*col_num + j]*u_d[j]);
+            printf("i = %d, j = %d \n",i, j);
+            printf("ME_T_d[%d]: %f \n",i*col_num + j, ME_T_d[i*col_num + j]);
+
         }
     }
     __syncthreads();
