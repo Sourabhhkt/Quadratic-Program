@@ -203,7 +203,7 @@ int main(int argc, char**argv) {
         cuda_ret = cudaMemcpy(ME_T_d, ME_T_h_1d, sizeof(float)*row_num*col_num, cudaMemcpyHostToDevice);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory ME_T_h_1d to ME_T_d device");
         // s
-        cuda_ret = cudaMemcpy(s_d, s, sizeof(float)*col_num, cudaMemcpyHostToDevice);
+        cuda_ret = cudaMemcpy(s_d, s, sizeof(float)*row_num, cudaMemcpyHostToDevice);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory s to s_d device");
 
         cudaDeviceSynchronize();
