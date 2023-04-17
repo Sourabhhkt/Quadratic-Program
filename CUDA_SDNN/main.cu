@@ -40,6 +40,7 @@ int main(int argc, char**argv) {
     //  [ 0.02443281  0.05235602]]
     // s = 
     //  [0.26236184 0.26294357 0.2617801  0.52530541]
+
     int row_num = 50; // this define dim of x
     int col_num = 1;
 
@@ -84,6 +85,16 @@ int main(int argc, char**argv) {
     h = read_h(inst_path,inst_name, row_num);
     print_1d_array(row_num,h);
 
+    // Preprocess instance ----------------------------------------------
+    // Calculate M =  W inverse
+    float** M = (float**) malloc( sizeof(float*)*row_num );
+    for (int i = 0; i < row_num; i++){
+        *(M+i) = (float*)malloc(sizeof(float)*row_num);
+    }
+    M = inverse_mat(float** W, int row_num);
+    print_2d_array(row_num,row_num,M);
+
+    
     // Initialize host variables ----------------------------------------------
     
     printf("\nSetting up the problem..."); fflush(stdout);

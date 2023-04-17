@@ -31,6 +31,7 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num);
 float* read_C(char* inst_path,char* inst_name, int row_num);
 float* read_l(char* inst_path,char* inst_name, int row_num);
 float* read_h(char* inst_path,char* inst_name, int row_num);
+float** inverse_mat(float** A, int mat_row_and_col);
 #ifdef __cplusplus
 }
 #endif
