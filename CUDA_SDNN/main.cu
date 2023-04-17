@@ -58,6 +58,12 @@ int main(int argc, char**argv) {
     // Init C
     float* C = (float*) malloc( sizeof(float)*row_num );
 
+    // Init h
+    float* h = (float*) malloc( sizeof(float)*row_num );
+
+    // Init l
+    float* l = (float*) malloc( sizeof(float)*row_num );
+
 
     printf("\nTesting csv reader function..\n"); fflush(stdout);
     char inst_path[] = "../DataInstance/QPLIB_0018/";
