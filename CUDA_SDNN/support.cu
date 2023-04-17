@@ -311,8 +311,8 @@ float* read_C(char* inst_path,char* inst_name, int row_num){
       while(token != NULL)
       {
           // printf("   Reading col: %d \n", c_idx);
-          if ((c_idx < row_num) and (r_idx < 1)) {
-            C[c_idx] = atof(token);
+          if ((c_idx < 1) and (r_idx < row_num)) {
+            C[r_idx] = atof(token);
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
