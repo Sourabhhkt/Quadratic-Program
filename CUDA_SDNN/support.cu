@@ -174,7 +174,7 @@ float vec_l1_norm(int col_num, float* gradient){
   return ans;
 }
 
-#define MAXCHAR 100000
+#define MAXCHAR 1000000
 void read_csv_file(char* filename){ 
 
   FILE *fp;
@@ -213,6 +213,7 @@ void read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   char* pointer_to_path = filepath;
 
   fp = fopen(pointer_to_path,"r");
+  printf("Reading file...\n");
 
   while (feof(fp) != true)
   {
