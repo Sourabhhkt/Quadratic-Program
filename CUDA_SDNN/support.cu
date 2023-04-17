@@ -200,30 +200,6 @@ void read_csv_file(char* filename){
   }
 }
 
-void read_csv_file(char* filename){ 
-
-  FILE *fp;
-  char row[MAXCHAR];
-  char *token;
-
-  fp = fopen(filename,"r");
-
-
-  while (feof(fp) != true)
-  {
-      fgets(row, MAXCHAR, fp);
-      printf("Row: %s", row);
-
-      token = strtok(row, ",");
-
-      while(token != NULL)
-      {
-          printf("Token: %s\n", token);
-          token = strtok(NULL, ",");
-      }
-
-  }
-}
 
 void read_W(char* inst_path,char* inst_name, int row_num, int col_num){ 
 
