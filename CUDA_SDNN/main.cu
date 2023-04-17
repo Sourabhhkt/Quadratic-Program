@@ -91,10 +91,10 @@ int main(int argc, char**argv) {
     for (int i = 0; i < row_num; i++){
         *(M+i) = (float*)malloc(sizeof(float)*row_num);
     }
-    M = inverse_mat(float** W, int row_num);
+    M = inverse_mat(W,row_num);
     print_2d_array(row_num,row_num,M);
 
-    
+
     // Initialize host variables ----------------------------------------------
     
     printf("\nSetting up the problem..."); fflush(stdout);
