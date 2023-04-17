@@ -223,13 +223,13 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   while (feof(fp) != true)
   {
       fgets(row, MAXCHAR, fp);
-      printf("Reading row: %d", r_idx);
+      printf("Reading row: %d \n", r_idx);
       token = strtok(row, ",");
       c_idx = 0;
       while(token != NULL)
       {
           // printf("Token: %s\n", token);
-          printf("Reading col: %d", c_idx);
+          printf("   Reading col: %d \n", c_idx);
           W[r_idx][c_idx] = atof(token);
           token = strtok(NULL, ",");
           c_idx++;
