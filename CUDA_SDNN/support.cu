@@ -451,7 +451,7 @@ float** inverse_mat(float** A, int mat_row_and_col){
   for(k=0;k<matsize;k++)                                  //by some row operations,and the same row operations of
   {                                                       //Unit mat. I gives the inverse of matrix A
       temp=A[k][k];     //'temp'  
-      printf("temp %f \n", temp);
+      // printf("temp %f \n", temp);
       // stores the A[k][k] value so that A[k][k]  will not change
       for(j=0;j<matsize;j++)      //during the operation //A[i] //[j]/=A[k][k]  when i=j=k
       {

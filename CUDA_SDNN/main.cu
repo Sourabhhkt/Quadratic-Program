@@ -106,6 +106,7 @@ int main(int argc, char**argv) {
     // ME_T[1][0] =  0.03548575; ME_T[1][1] =  -0.01919721; 
     // ME_T[2][0] =  -0.05759162; ME_T[2][1] =  0.16230366; 
     // ME_T[3][0] =  0.02443281; ME_T[3][1] =  0.05235602; 
+    printf("\n Calculating ME_T..."); fflush(stdout);
     ME_T = mat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E));
     printf("Matrix ME^T: \n"); fflush(stdout);
     print_2d_array(row_num,const_num,ME_T);
