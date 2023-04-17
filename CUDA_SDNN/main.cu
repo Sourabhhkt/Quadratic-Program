@@ -115,7 +115,7 @@ int main(int argc, char**argv) {
 
 
     // Constant parameter from the problem: l and h
-    float* l; float* h; 
+    // float* l; float* h; 
     float raw_l[] = {FLT_MIN, -2};
     float raw_h[] = {-1, 4};
     l = raw_l; h = raw_h;
