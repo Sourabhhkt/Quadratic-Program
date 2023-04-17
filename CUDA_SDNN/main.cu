@@ -73,8 +73,8 @@ int main(int argc, char**argv) {
     W = read_W(inst_path,inst_name, row_num, row_num);
     // print_2d_array(row_num,row_num,W);
 
-    E = read_E(inst_path,inst_name, col_num, row_num);
-    // print_2d_array(col_num,row_num,E);
+    E = read_E(inst_path,inst_name, row_num, row_num+1);
+    // print_2d_array(row_num,row_num+1,E);
 
     C = read_C(inst_path,inst_name, row_num);
     // print_1d_array(row_num,C);
@@ -94,24 +94,24 @@ int main(int argc, char**argv) {
     M = inverse_mat(W,row_num);
     print_2d_array(row_num,row_num,M);
 
+    const_num = row_num+1;
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
     for (int i = 0; i < row_num; i++){
-        *(ME_T+i) = (float*)malloc(sizeof(float)*col_num);
+        *(ME_T+i) = (float*)malloc(sizeof(float)*(const_num));
     }
 
     // ME_T[0][0] =  -0.01105294; ME_T[0][1] =  0.07155323;
     // ME_T[1][0] =  0.03548575; ME_T[1][1] =  -0.01919721; 
     // ME_T[2][0] =  -0.05759162; ME_T[2][1] =  0.16230366; 
     // ME_T[3][0] =  0.02443281; ME_T[3][1] =  0.05235602; 
-
-    // printf("Matrix ME^T: \n"); fflush(stdout);
-    // print_2d_array(row_num,col_num,ME_T);
-    float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*col_num);
-    // ME_T_h_1d = convert_2d_mat_to_1d_arr(row_num, col_num, ME_T);
-    ME_T_h_1d = mat_mul_vec(row_num,col_num, M, E[0]);;
+    ME_T = mat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E))
+    printf("Matrix ME^T: \n"); fflush(stdout);
+    print_2d_array(row_num,const_num,ME_T);
+    float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*cconst_num);
+    ME_T_h_1d = convert_2d_mat_to_1d_arr(row_num, const_num, ME_T);
     printf("Matrix ME^T_1d: \n"); fflush(stdout);
-    print_1d_array(row_num*col_num,ME_T_h_1d);
+    print_1d_array(row_num*const_num,ME_T_h_1d);
 
 
 
