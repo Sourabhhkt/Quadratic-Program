@@ -45,7 +45,7 @@ int main(int argc, char**argv) {
 
 
     printf("\nTesting csv reader function..\n"); fflush(stdout);
-    char inst_path[] = "../DataInstance/QPLOB_0018/";
+    char inst_path[] = "../DataInstance/QPLIB_0018/";
     char inst_name[] = "QPLIB_0018";
 
     char f_name[] = "example.csv";
