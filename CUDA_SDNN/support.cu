@@ -200,16 +200,17 @@ void read_csv_file(char* filename){
   }
 }
 
-
+#define STR_SIZE 10000
 void read_W(char* inst_path,char* inst_name, int row_num, int col_num){ 
 
   FILE *fp;
   char row[MAXCHAR];
   char *token;
 
-  char filename[] = strcat(inst_name,"_W1.csv");
-  char filepath[] = strcat(strcat(inst_path,inst_name),filename);
-  printf("%s", filepath);
+  char filepath[STR_SIZE] = {0};
+  snprintf(filepath, sizeof(filepath), "%s %s %s", inst_name, inst_name, "_W1.csv");
+  printf("%s\n", filepath);
+
   fp = fopen(filename,"r");
 
   while (feof(fp) != true)
