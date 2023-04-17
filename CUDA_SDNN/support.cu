@@ -211,7 +211,7 @@ void read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_W1.csv");
   printf("%s\n", filepath);
 
-  fp = fopen(filepath,"r");
+  fp = fopen(&filepath,"r");
 
   while (feof(fp) != true)
   {
