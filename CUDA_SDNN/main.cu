@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
     char inst_path[100];
     // = "../DataInstance/QPLIB_0018/";
     snprintf(inst_path, sizeof(inst_path), "../DataInstance/%s/",INST_NAME);
-    char inst_name[10] = INST_NAME;
-    char w_name[2] = W_NAME;
+    char* inst_name = INST_NAME;
+    char* w_name = W_NAME;
     float step_size = get_step_size(inst_name, w_name);
     printf("\n Dataset name: %s ", inst_name); fflush(stdout);
     printf("\n W name: %s ", w_name); fflush(stdout);
