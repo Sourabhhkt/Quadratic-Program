@@ -341,7 +341,7 @@ float* read_l(char* inst_path,char* inst_name, int row_num){
   printf("Reading file... %s \n", filepath);
   char infstr[] = "inf";
   char minusinfstr[] = "-inf";
-  
+
   int r_idx = 0;int c_idx = 0;
   int read_r_size;int read_c_size;
   while (feof(fp) != true)
@@ -354,9 +354,9 @@ float* read_l(char* inst_path,char* inst_name, int row_num){
       {
           // printf("   Reading col: %d \n", c_idx);
           if ((c_idx < 1) and (r_idx < row_num)) {
-            if (strcmp(infstr,token)){
+            if (strcmp(infstr,token)==0){
               l[r_idx] = FLT_MAX;
-            } else if(strcmp(minusinfstr,token)) {
+            } else if(strcmp(minusinfstr,token)==0) {
               l[r_idx] = FLT_MIN;
             }else {
               l[r_idx] = atof(token);
@@ -402,9 +402,9 @@ float* read_h(char* inst_path,char* inst_name, int row_num){
       {
           // printf("   Reading col: %d \n", c_idx);
           if ((c_idx < 1) and (r_idx < row_num)) {
-            if (strcmp(infstr,token)){
+            if (strcmp(infstr,token)==0){
               h[r_idx] = FLT_MAX;
-            } else if(strcmp(minusinfstr,token)) {
+            } else if(strcmp(minusinfstr,token)==0) {
               h[r_idx] = FLT_MIN;
             }else {
               h[r_idx] = atof(token);
