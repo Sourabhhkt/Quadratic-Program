@@ -244,8 +244,8 @@ int main(int argc, char* argv[]) {
         // print_1d_array(const_num,Ex);
 
         g_Ex_u = g_function(const_num, vec_add_vec(const_num,Ex,u_p_minus),l,h);
-        printf("Vector g_Ex_u: \n"); fflush(stdout);
-        print_1d_array(const_num,g_Ex_u);
+        // printf("Vector g_Ex_u: \n"); fflush(stdout);
+        // print_1d_array(const_num,g_Ex_u);
 
 
         // u_c_h =vec_add_vec(col_num,u_p_h,scale_vec(col_num, EPSILON, vec_add_vec(col_num,g_Ex_u, scale_vec(col_num,-1, Ex)))
@@ -253,8 +253,8 @@ int main(int argc, char* argv[]) {
         {
             u_c_h[_idx] = u_p_h[_idx] + (step_size)*(g_Ex_u[_idx]-Ex[_idx]);
         }
-        printf("Vector u_c_h: \n"); fflush(stdout);
-        print_1d_array(const_num,u_c_h);
+        // printf("Vector u_c_h: \n"); fflush(stdout);
+        // print_1d_array(const_num,u_c_h);
 
 
         // Allocate device variables ----------------------------------------------
@@ -324,8 +324,8 @@ int main(int argc, char* argv[]) {
         stopTime(&timer); printf("%f s\n", elapsedTime(timer));
         // calculate x_h
         // x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
-        printf("Vector x_h: \n"); fflush(stdout);
-        print_1d_array(row_num,x_h);
+        // printf("Vector x_h: \n"); fflush(stdout);
+        // print_1d_array(row_num,x_h);
 
         // Close kernel & free memory
         cudaFree(u_d);
