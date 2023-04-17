@@ -26,7 +26,7 @@ float* scale_vec(int _r, float scaler, float* _vec);
 float* convert_2d_mat_to_1d_arr(int row_num, int col_num,float** ME_T);
 float vec_l1_norm(int col_num, float* gradient);
 void read_csv_file(char* filename);
-void read_W(char* inst_path,char* inst_name, int row_num, int col_num)
+void read_W(char* inst_path,char* inst_name, int row_num, int col_num);
 #ifdef __cplusplus
 }
 #endif
