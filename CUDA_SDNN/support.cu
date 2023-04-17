@@ -427,9 +427,9 @@ float** inverse_mat(float** A, int mat_row_and_col){
   int matsize = mat_row_and_col;
   // printf("Enter the size of the matrix(i.e. value of 'n' as size is nXn):");
   // scanf("%d",&matsize);
-  A=(float **)malloc(matsize*sizeof(float *));            //allocate memory dynamically for matrix A(matsize X matsize)
-  for(i=0;i<matsize;i++)
-      A[i]=(float *)malloc(matsize*sizeof(float));
+  // A=(float **)malloc(matsize*sizeof(float *));            //allocate memory dynamically for matrix A(matsize X matsize)
+  // for(i=0;i<matsize;i++)
+  //     A[i]=(float *)malloc(matsize*sizeof(float));
 
   I=(float **)malloc(matsize*sizeof(float *));            //memory allocation for indentity matrix I(matsize X matsize)
   for(i=0;i<matsize;i++)
