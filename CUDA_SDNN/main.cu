@@ -312,7 +312,7 @@ int main(int argc, char**argv) {
         const unsigned int numBlocks = (row_num - 1)/THREADS_PER_BLOCK + 1;
         printf("Num blocks: %d, Num threads per block: %d \n",numBlocks,THREADS_PER_BLOCK);
         //INSERT CODE HERE to call kernel
-        sdnnIterationKernel<<<ceil(numBlocks),THREADS_PER_BLOCK>>>(x_d, u_d, ME_T_d, s_d, row_num, col_num);
+        sdnnIterationKernel<<<ceil(numBlocks),THREADS_PER_BLOCK>>>(x_d, u_d, ME_T_d, s_d, row_num, const_num);
 
         cuda_ret = cudaDeviceSynchronize();
         if(cuda_ret != cudaSuccess) FATAL("Unable to launch kernel");
