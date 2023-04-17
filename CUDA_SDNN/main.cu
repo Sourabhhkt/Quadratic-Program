@@ -4,7 +4,7 @@
 #include <float.h>
 #include <time.h>
 
-int main(int argc, char**argv) {
+int main(int argc, char* argv[]) {
 
     Timer timer;
     clock_t start, end;
