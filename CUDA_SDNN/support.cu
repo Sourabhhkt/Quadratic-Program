@@ -508,8 +508,9 @@ float** transpose_mat(int _r, int _c, float** _A){
   for (int i = 0; i < _c; i++){
         *(result+i) = (float*)malloc(sizeof(float)*_r);
   }
-  for (_i = 0; _i < _r; _i++){
-    for (_j = 0; _j < _c; _j++){
+
+  for (int _i = 0; _i < _r; _i++){
+    for (int _j = 0; _j < _c; _j++){
       result[_j][_i] = _A[_i][_j];
     }
   }
