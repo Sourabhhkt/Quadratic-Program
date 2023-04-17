@@ -520,17 +520,17 @@ float** transpose_mat(int _r, int _c, float** _A){
 
 
 float get_step_size(char* inst_name, char* w_name){
-  char* qplib_0018 = "QPLIB_0018";
-  char* qplib_0343 = "QPLIB_0343";
-  char* qplib_2712 = "QPLIB_2712";
-  char* qplib_2761 = "QPLIB_2761";
-  char* qplib_8845 = "QPLIB_8845";
+  char qplib_0018[] = "QPLIB_0018";
+  char qplib_0343[] = "QPLIB_0343";
+  char qplib_2712[] = "QPLIB_2712";
+  char qplib_2761[] = "QPLIB_2761";
+  char qplib_8845[] = "QPLIB_8845";
 
-  char* w0 = "W0";
-  char* w1 = "W1";
-  char* w2 = "W2";
-  char* w3 = "W3";
-  char* w4 = "W4";
+  char w0[] = "W0";
+  char w1[] = "W1";
+  char w2[] = "W2";
+  char w3[] = "W3";
+  char w4[] = "W4";
 
   float step_size;
 
