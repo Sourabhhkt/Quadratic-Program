@@ -228,9 +228,10 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
       c_idx = 0;
       while(token != NULL)
       {
-          // printf("Token: %s\n", token);
           printf("   Reading col: %d \n", c_idx);
-          W[r_idx][c_idx] = atof(token);
+          if ((c_idx < row_num) and (r_idx < row_num)) {
+            W[r_idx][c_idx] = atof(token);
+          }
           token = strtok(NULL, ",");
           c_idx++;
       }
