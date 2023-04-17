@@ -219,6 +219,7 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   printf("Reading file... %s \n", filepath);
 
   int r_idx = 0; int c_idx = 0;
+  int read_r_size;int read_c_size;
   while (feof(fp) != true)
   {
       fgets(row, MAXCHAR, fp);
@@ -230,13 +231,15 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
           printf("   Reading col: %d \n", c_idx);
           if ((c_idx < row_num) and (r_idx < row_num)) {
             W[r_idx][c_idx] = atof(token);
+            read_r_size = r_idx; 
+            read_c_size = c_idx;
           }
           token = strtok(NULL, ",");
           c_idx++;
       }
       r_idx++;
   }
-  printf("Finished reading W with size r:%d x c:%d \n", r_idx+1, c_idx+1);
+  printf("Finished reading W with size r:%d x c:%d \n", read_r_size+1, read_c_size+1);
   return W;
 }
 
@@ -258,6 +261,7 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){
   printf("Reading file... %s \n", filepath);
 
   int r_idx = 0; int c_idx = 0;
+  int read_r_size;int read_c_size;
   while (feof(fp) != true)
   {
       fgets(row, MAXCHAR, fp);
@@ -269,13 +273,15 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){
           // printf("   Reading col: %d \n", c_idx);
           if ((c_idx < col_num) and (r_idx < row_num)) {
             E[r_idx][c_idx] = atof(token);
+            read_r_size = r_idx; 
+            read_c_size = c_idx;
           }
           token = strtok(NULL, ",");
           c_idx++;
       }
       r_idx++;
   }
-  printf("Finished reading E with size r:%d x c:%d \n", r_idx+1, c_idx+1);
+  printf("Finished reading E with size r:%d x c:%d \n", read_r_size+1, read_c_size+1);
   return E;
 }
 
