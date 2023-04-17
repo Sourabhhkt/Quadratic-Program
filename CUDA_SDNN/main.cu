@@ -73,9 +73,16 @@ int main(int argc, char**argv) {
     float* l = (float*) malloc( sizeof(float)*row_num );
 
 
-    printf("\nTesting csv reader function..\n"); fflush(stdout);
+    printf("\nLoading dataset..\n"); fflush(stdout);
     char inst_path[] = "../DataInstance/QPLIB_0018/";
     char inst_name[] = "QPLIB_0018";
+    char w_name[] = "W1";
+    float step_size = get_step_size(inst_name, w_name);
+    printf("\n Dataset name: %s \n", inst_name); fflush(stdout);
+    printf("\n W name: %s \n", w_name); fflush(stdout);
+    printf("\n Step size: %f \n", step_size); fflush(stdout);
+
+
 
     W = read_W(inst_path,inst_name, row_num, row_num);
     // print_2d_array(row_num,row_num,W);
@@ -248,7 +255,7 @@ int main(int argc, char**argv) {
         // u_c_h =vec_add_vec(col_num,u_p_h,scale_vec(col_num, EPSILON, vec_add_vec(col_num,g_Ex_u, scale_vec(col_num,-1, Ex)))
         for (int _idx = 0; _idx< const_num; _idx++)
         {
-            u_c_h[_idx] = u_p_h[_idx] + (1/EPSILON)*(g_Ex_u[_idx]-Ex[_idx]);
+            u_c_h[_idx] = u_p_h[_idx] + (step_size)*(g_Ex_u[_idx]-Ex[_idx]);
         }
         // printf("Vector u_c_h: \n"); fflush(stdout);
         // print_1d_array(const_num,u_c_h);

@@ -519,4 +519,99 @@ float** transpose_mat(int _r, int _c, float** _A){
 }
 
 
+float get_step_size(char* inst_name, char* w_name){
+  char* qplib_0018 = "QPLIB_0018";
+  char* qplib_0343 = "QPLIB_0343";
+  char* qplib_2712 = "QPLIB_2712";
+  char* qplib_2761 = "QPLIB_2761";
+  char* qplib_8845 = "QPLIB_8845";
+
+  char* w0 = "W0";
+  char* w1 = "W1";
+  char* w2 = "W2";
+  char* w3 = "W3";
+  char* w4 = "W4";
+
+  float step_size;
+
+  if (strcmp(inst_name,qplib_0018)==0){
+    if (strcmp(w_name,w0)==0){
+      step_size = 0.032623;
+    }else if (strcmp(w_name,w1)==0){
+      step_size = 0.036688;
+    }else if (strcmp(w_name,w2)==0){
+      step_size = 0.00267630;
+    }else if (strcmp(w_name,w3)==0){
+      step_size = 0.00649361;
+    }else if (strcmp(w_name,w4)==0){
+      step_size = 0.02467872;
+    }else{
+      step_size = 1;
+    }
+
+  }else if(strcmp(inst_name,qplib_0343)==0){
+    if (strcmp(w_name,w0)==0){
+      step_size = 0.0326239;
+    }else if (strcmp(w_name,w1)==0){
+      step_size = 0.036688;
+    }else if (strcmp(w_name,w2)==0){
+      step_size = 0.0026763;
+    }else if (strcmp(w_name,w3)==0){
+      step_size = 0.0064936;
+    }else if (strcmp(w_name,w4)==0){
+      step_size = 0.0246787;
+    }else{
+      step_size = 1;
+    }
+  }else if(strcmp(inst_name,qplib_2712)==0){
+    if (strcmp(w_name,w0)==0){
+      step_size = 0.0036778;
+    }else if (strcmp(w_name,w1)==0){
+      step_size = 0.0053945;
+    }else if (strcmp(w_name,w2)==0){
+      step_size = 0.0026067;
+    }else if (strcmp(w_name,w3)==0){
+      step_size = 0.00616046;
+    }else if (strcmp(w_name,w4)==0){
+      step_size = 0.0022453;
+    }else{
+      step_size = 1;
+    }
+  }else if(strcmp(inst_name,qplib_2761)==0){
+    if (strcmp(w_name,w0)==0){
+      step_size = 0.00109460;
+    }else if (strcmp(w_name,w1)==0){
+      step_size = 0.00184352;
+    }else if (strcmp(w_name,w2)==0){
+      step_size = 0.00023714;
+    }else if (strcmp(w_name,w3)==0){
+      step_size = 0.00140413;
+    }else if (strcmp(w_name,w4)==0){
+      step_size = 0.000899701;
+    }else{
+      step_size = 1;
+    }
+  }else if(strcmp(inst_name,qplib_8845)==0){
+    if (strcmp(w_name,w0)==0){
+      step_size = 0.0010703;
+    }else if (strcmp(w_name,w1)==0){
+      step_size = 0.00056736;
+    }else if (strcmp(w_name,w2)==0){
+      step_size = 0.000536811;
+    }else if (strcmp(w_name,w3)==0){
+      step_size = 0.000422592;
+    }else if (strcmp(w_name,w4)==0){
+      step_size = 0.0005768;
+    }else{
+      step_size = 1;
+    }
+  }
+
+
+
+
+
+}
+
+
 
