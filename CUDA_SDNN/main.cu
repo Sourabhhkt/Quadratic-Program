@@ -10,40 +10,58 @@ int main(int argc, char**argv) {
     clock_t start, end;
     float cpu_time_used;
     cudaError_t cuda_ret;
-    
-    // Setting up input parameter for QP
-    // W = np.array([
-    //     [6, 3, 5, 0],
-    //     [3, 6, 0, 1],
-    //     [5, 0, 8, 0],
-    //     [0, 1, 0, 10] 
-    // ])
-    // A = np.array([
-    //     [3, -3, -2, 1],
-    //     [4, 1, -1, -2] 
-    // ])
-    // E = np.array([
-    //     [-1, 1, 0, 0],
-    //     [3, 0, 1, 0] 
-    // ])
-    // C = np.array([-11,0,0,-5])
-    // b = np.array([0,0])
-    // l = np.array([-np.inf,-2])
-    // h = np.array([-1,4])
-    
-    // W_inv = np.linalg.inv(W)
 
-    //     ME_T = 
-    //  [[-0.01105294  0.07155323]
-    //  [ 0.03548575 -0.01919721]
-    //  [-0.05759162  0.16230366]
-    //  [ 0.02443281  0.05235602]]
-    // s = 
-    //  [0.26236184 0.26294357 0.2617801  0.52530541]
+    printf("\nReading user arguments ...\n"); fflush(stdout);
+    char[10] INST_NAME; char[2] W_NAME;
+    int ITERATIONLIM; float TIMELIMINSEC;
+    if (argc==5){
+        INST_NAME = argv[1];
+        W_NAME = argv[2];
+        ITERATIONLIM = atof(argv[3]);
+        TIMELIMINSEC = atof(argv[4]);
+    } else{
+        fprintf(stderr, "Incomplete or invalid arguments!\n");
+        exit(-1);
+    }
+    // char filepath[STR_SIZE] = {0};
+    // snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_l.csv");
+    // char* pointer_to_path = filepath;
+
+
+    printf("\nLoading dataset..\n"); fflush(stdout);
+    // char inst_path[100] = "../DataInstance/QPLIB_0018/";
+    snprintf(inst_path, sizeof(inst_path), "../DataInstance/%s/",INST_NAME);
+    char inst_name[] = INST_NAME;
+    char w_name[] = W_NAME;
+    float step_size = get_step_size(inst_name, w_name);
+    printf("\n Dataset name: %s ", inst_name); fflush(stdout);
+    printf("\n W name: %s ", w_name); fflush(stdout);
+    // printf("\n Step size: %f \n", step_size); fflush(stdout);
+        
+
+    // if (argc==2){
+    //     EPSILON = atof(argv[1]);
+    //     ITERATIONLIM = 100;
+    //     TIMELIMINSEC = 120; // 2mins
+    // } else if (argc==3){
+    //     EPSILON = atof(argv[1]);
+    //     ITERATIONLIM = atof(argv[2]);
+    //     TIMELIMINSEC = 120; // 2mins
+    // } else if (argc==4){
+    //     EPSILON = atof(argv[1]);
+    //     ITERATIONLIM = atof(argv[2]);
+    //     TIMELIMINSEC = atof(argv[3]);
+    // } else{
+    //     EPSILON = 1;
+    //     ITERATIONLIM = 100;
+    //     TIMELIMINSEC = 120; // 2mins
+    // }
+
+
 
     int row_num = 50; // this define dim of x
     int col_num = 1;
-    int const_num = row_num+1;
+    int const_num = row_num+col_num;
 
     // Init W
     float** W = (float**) malloc( sizeof(float*)*row_num );
@@ -73,14 +91,7 @@ int main(int argc, char**argv) {
     float* l = (float*) malloc( sizeof(float)*row_num );
 
 
-    printf("\nLoading dataset..\n"); fflush(stdout);
-    char inst_path[] = "../DataInstance/QPLIB_0018/";
-    char inst_name[] = "QPLIB_0018";
-    char w_name[] = "W1";
-    float step_size = get_step_size(inst_name, w_name);
-    printf("\n Dataset name: %s ", inst_name); fflush(stdout);
-    printf("\n W name: %s ", w_name); fflush(stdout);
-    // printf("\n Step size: %f \n", step_size); fflush(stdout);
+    
 
 
 
@@ -138,24 +149,7 @@ int main(int argc, char**argv) {
     
     printf("\nSetting up the problem...\n"); fflush(stdout);
     startTime(&timer);
-    float EPSILON; int ITERATIONLIM; float TIMELIMINSEC;
-    if (argc==2){
-        EPSILON = atof(argv[1]);
-        ITERATIONLIM = 100;
-        TIMELIMINSEC = 120; // 2mins
-    } else if (argc==3){
-        EPSILON = atof(argv[1]);
-        ITERATIONLIM = atof(argv[2]);
-        TIMELIMINSEC = 120; // 2mins
-    } else if (argc==4){
-        EPSILON = atof(argv[1]);
-        ITERATIONLIM = atof(argv[2]);
-        TIMELIMINSEC = atof(argv[3]);
-    } else{
-        EPSILON = 1;
-        ITERATIONLIM = 100;
-        TIMELIMINSEC = 120; // 2mins
-    }
+    
      
     printf("Step size = %f \n", step_size); fflush(stdout);
     printf("ITERATIONLIM = %d \n", ITERATIONLIM); fflush(stdout);
@@ -401,3 +395,32 @@ int main(int argc, char**argv) {
 
 }
 
+    // Setting up input parameter for QP
+    // W = np.array([
+    //     [6, 3, 5, 0],
+    //     [3, 6, 0, 1],
+    //     [5, 0, 8, 0],
+    //     [0, 1, 0, 10] 
+    // ])
+    // A = np.array([
+    //     [3, -3, -2, 1],
+    //     [4, 1, -1, -2] 
+    // ])
+    // E = np.array([
+    //     [-1, 1, 0, 0],
+    //     [3, 0, 1, 0] 
+    // ])
+    // C = np.array([-11,0,0,-5])
+    // b = np.array([0,0])
+    // l = np.array([-np.inf,-2])
+    // h = np.array([-1,4])
+    
+    // W_inv = np.linalg.inv(W)
+
+    //     ME_T = 
+    //  [[-0.01105294  0.07155323]
+    //  [ 0.03548575 -0.01919721]
+    //  [-0.05759162  0.16230366]
+    //  [ 0.02443281  0.05235602]]
+    // s = 
+    //  [0.26236184 0.26294357 0.2617801  0.52530541]
