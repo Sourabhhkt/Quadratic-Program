@@ -396,7 +396,7 @@ float* read_h(char* inst_path,char* inst_name, int row_num){
   {
       fgets(row, MAXCHAR, fp);
       // printf("Reading row: %d \n", r_idx);
-      token = strtok(row, ",");
+      token = strtok(row, " ,\n");
       c_idx = 0;
       while(token != NULL)
       {
@@ -412,7 +412,7 @@ float* read_h(char* inst_path,char* inst_name, int row_num){
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
-          token = strtok(NULL, ",");
+          token = strtok(NULL, " ,\n");
           c_idx++;
       }
       r_idx++;
