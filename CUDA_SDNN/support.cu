@@ -300,8 +300,8 @@ float* read_C(char* inst_path,char* inst_name, int row_num){
   fp = fopen(pointer_to_path,"r");
   printf("Reading file... %s \n", filepath);
 
-  int c_idx = 0;
-  int read_c_size;
+  int r_idx = 0;int c_idx = 0;
+  int read_r_size;int read_c_size;
   while (feof(fp) != true)
   {
       fgets(row, MAXCHAR, fp);
