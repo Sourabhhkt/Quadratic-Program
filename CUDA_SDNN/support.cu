@@ -175,7 +175,7 @@ float vec_l1_norm(int col_num, float* gradient){
 }
 
 #define MAXCHAR 1000
-void read_csv_file(char* filename[]){ 
+void read_csv_file(char* filename){ 
 
   FILE *fp;
   char row[MAXCHAR];
