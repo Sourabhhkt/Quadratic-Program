@@ -40,9 +40,13 @@ int main(int argc, char**argv) {
     //  [ 0.02443281  0.05235602]]
     // s = 
     //  [0.26236184 0.26294357 0.2617801  0.52530541]
+    printf("\nTesting csv reader function.."); fflush(stdout);
+    read_csv_file("example.csv");
+
+
 
     // Initialize host variables ----------------------------------------------
-
+    
     printf("\nSetting up the problem..."); fflush(stdout);
     startTime(&timer);
     float EPSILON; int ITERATIONLIM; float TIMELIMINSEC;
