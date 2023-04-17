@@ -78,8 +78,8 @@ int main(int argc, char**argv) {
     char inst_name[] = "QPLIB_0018";
     char w_name[] = "W1";
     float step_size = get_step_size(inst_name, w_name);
-    printf("\n Dataset name: %s \n", inst_name); fflush(stdout);
-    printf("\n W name: %s \n", w_name); fflush(stdout);
+    printf("\n Dataset name: %s ", inst_name); fflush(stdout);
+    printf("\n W name: %s ", w_name); fflush(stdout);
     printf("\n Step size: %f \n", step_size); fflush(stdout);
 
 
@@ -91,13 +91,13 @@ int main(int argc, char**argv) {
     // print_2d_array(row_num,row_num+1,E);
 
     C = read_C(inst_path,inst_name, row_num);
-    print_1d_array(row_num,C);
+    // print_1d_array(row_num,C);
 
-    l = read_l(inst_path,inst_name, row_num);
-    print_1d_array(row_num,l);
+    l = read_l(inst_path,inst_name, const_num);
+    // print_1d_array(row_num,l);
 
-    h = read_h(inst_path,inst_name, row_num);
-    print_1d_array(row_num,h);
+    h = read_h(inst_path,inst_name, const_num);
+    // print_1d_array(row_num,h);
 
     // Preprocess instance ----------------------------------------------
     // Calculate M =  W inverse
