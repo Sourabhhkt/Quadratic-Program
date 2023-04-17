@@ -12,7 +12,7 @@ int main(int argc, char**argv) {
     cudaError_t cuda_ret;
 
     printf("\nReading user arguments ...\n"); fflush(stdout);
-    char INST_NAME[10]; char W_NAME[2];
+    char* INST_NAME; char* W_NAME;
     int ITERATIONLIM; float TIMELIMINSEC;
     if (argc==5){
         INST_NAME = argv[1];
