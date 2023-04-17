@@ -44,7 +44,7 @@ int main(int argc, char**argv) {
     int col_num = 1;
 
 
-    printf("\nTesting csv reader function.."); fflush(stdout);
+    printf("\nTesting csv reader function..\n"); fflush(stdout);
     char inst_path[] = "/DataInstance/QPLOB_0018/";
     char inst_name[] = "QPLOB_0018";
 
