@@ -606,11 +606,7 @@ float get_step_size(char* inst_name, char* w_name){
       step_size = 1;
     }
   }
-
-
-
-
-
+return step_size;
 }
 
 
