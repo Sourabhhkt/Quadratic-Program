@@ -41,7 +41,8 @@ int main(int argc, char**argv) {
     // s = 
     //  [0.26236184 0.26294357 0.2617801  0.52530541]
     printf("\nTesting csv reader function.."); fflush(stdout);
-    read_csv_file("example.csv");
+    char[] f_name = "example.csv";
+    read_csv_file(f_name);
 
 
 
