@@ -233,7 +233,7 @@ void read_W(char* inst_path,char* inst_name, int row_num, int col_num){
 
   char filename[] = strcat(inst_name,"_W1.csv");
   char filepath[] = strcat(strcat(inst_path,inst_name),filename);
-  printf("%s", filepath)
+  printf("%s", filepath);
   fp = fopen(filename,"r");
 
   while (feof(fp) != true)
