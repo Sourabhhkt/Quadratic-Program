@@ -158,9 +158,9 @@ int main(int argc, char**argv) {
 
     // Constant parameter from the problem: l and h
     // float* l; float* h; 
-    float raw_l[] = {FLT_MIN, -2};
-    float raw_h[] = {-1, 4};
-    l = raw_l; h = raw_h;
+    // float raw_l[] = {FLT_MIN, -2};
+    // float raw_h[] = {-1, 4};
+    // l = raw_l; h = raw_h;
 
     // Constant parameter from the problem: ME^T
     // float** E = (float**) malloc( sizeof(float*)*col_num );
@@ -191,16 +191,20 @@ int main(int argc, char**argv) {
     // print_1d_array(row_num*col_num,ME_T_h_1d);
 
     // Constant parameter from the problem: s
-    float raw_vecS[] = {0.26236184, 0.26294357, 0.2617801, 0.52530541};
-    float* s = raw_vecS;
-    
+    // float raw_vecS[] = {0.26236184, 0.26294357, 0.2617801, 0.52530541};
+    // float* s = raw_vecS;
+    float* s = mat_mul_vec(M, scale_vec(row_num, -1, C))
     printf("Vector s: \n"); fflush(stdout);
     print_1d_array(row_num,s);
 
     // Initialize u and x variable
-    float raw_u[] = {10, -10};float raw_u_minus[] = {-10, 10};
-    float* u_p_h = raw_u;
-    float* u_p_minus = raw_u_minus;
+    // float raw_u[] = {10, -10};float raw_u_minus[] = {-10, 10};
+    // float* u_p_h = raw_u;
+    float* u_p_h = (float*)malloc(sizeof(float)*const_num);
+    for (int i = 0; i < const_num; i++){
+        u_p_h[i] = 0;
+    }
+    float* u_p_minus = u_p_h;
 
     float* x_h = (float*)malloc(sizeof(float)*row_num);
     float* x_p_h = (float*)malloc(sizeof(float)*row_num);
