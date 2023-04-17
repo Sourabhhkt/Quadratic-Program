@@ -80,7 +80,7 @@ int main(int argc, char**argv) {
     W = read_W(inst_path,inst_name, row_num, row_num);
     // print_2d_array(row_num,row_num,W);
 
-    E = read_E(inst_path,inst_name, row_num, row_num+1);
+    E = read_E(inst_path,inst_name, const_num, row_num);
     // print_2d_array(row_num,row_num+1,E);
 
     C = read_C(inst_path,inst_name, row_num);
