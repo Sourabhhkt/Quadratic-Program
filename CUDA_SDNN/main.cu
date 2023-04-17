@@ -29,7 +29,8 @@ int main(int argc, char**argv) {
 
 
     printf("\nLoading dataset..\n"); fflush(stdout);
-    // char inst_path[100] = "../DataInstance/QPLIB_0018/";
+    char inst_path[100];
+    // = "../DataInstance/QPLIB_0018/";
     snprintf(inst_path, sizeof(inst_path), "../DataInstance/%s/",INST_NAME);
     char inst_name[] = INST_NAME;
     char w_name[] = W_NAME;
