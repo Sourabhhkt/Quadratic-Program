@@ -95,10 +95,10 @@ int main(int argc, char**argv) {
     print_2d_array(row_num,row_num,M);
 
     // Constant parameter from the problem: ME^T
-    // float** ME_T = (float**) malloc( sizeof(float*)*row_num );
-    // for (int i = 0; i < row_num; i++){
-    //     *(ME_T+i) = (float*)malloc(sizeof(float)*col_num);
-    // }
+    float** ME_T = (float**) malloc( sizeof(float*)*row_num );
+    for (int i = 0; i < row_num; i++){
+        *(ME_T+i) = (float*)malloc(sizeof(float)*col_num);
+    }
 
     // ME_T[0][0] =  -0.01105294; ME_T[0][1] =  0.07155323;
     // ME_T[1][0] =  0.03548575; ME_T[1][1] =  -0.01919721; 
