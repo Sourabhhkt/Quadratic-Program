@@ -425,7 +425,6 @@ float** inverse_mat(float** A, int mat_row_and_col){
   float **I,temp;
   int i,j,k;
   int matsize = mat_row_and_col;
-
   // printf("Enter the size of the matrix(i.e. value of 'n' as size is nXn):");
   // scanf("%d",&matsize);
   A=(float **)malloc(matsize*sizeof(float *));            //allocate memory dynamically for matrix A(matsize X matsize)
@@ -447,11 +446,12 @@ float** inverse_mat(float** A, int mat_row_and_col){
               I[i][j]=1;                                  // | 0  1  0 |
           else                                            // | 0  0  1 |
               I[i][j]=0;                                  //  -       -
-/*---------------LoGiC starts here------------------*/      //procedure // to make the matrix A to unit matrix
+  /*---------------LoGiC starts here------------------*/      //procedure // to make the matrix A to unit matrix
 
   for(k=0;k<matsize;k++)                                  //by some row operations,and the same row operations of
   {                                                       //Unit mat. I gives the inverse of matrix A
-      temp=A[k][k];                   //'temp'  
+      temp=A[k][k];     //'temp'  
+      printf("temp %f \n", temp);
       // stores the A[k][k] value so that A[k][k]  will not change
       for(j=0;j<matsize;j++)      //during the operation //A[i] //[j]/=A[k][k]  when i=j=k
       {
@@ -470,9 +470,10 @@ float** inverse_mat(float** A, int mat_row_and_col){
           }
       }
   }
-/*---------------LoGiC ends here--------------------*/
+  /*---------------LoGiC ends here--------------------*/
 
-return I;
+  printf("Finished calculating the inverse...");
+  return I;
 }
 
 
