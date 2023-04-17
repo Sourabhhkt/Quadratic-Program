@@ -426,9 +426,8 @@ float** inverse_mat(float** A, int mat_row_and_col){
   int i,j,k;
   int matsize = mat_row_and_col;
 
-  printf("Enter the size of the matrix(i.e. value of 'n' as size is nXn):");
-  scanf("%d",&matsize);
-
+  // printf("Enter the size of the matrix(i.e. value of 'n' as size is nXn):");
+  // scanf("%d",&matsize);
   A=(float **)malloc(matsize*sizeof(float *));            //allocate memory dynamically for matrix A(matsize X matsize)
   for(i=0;i<matsize;i++)
       A[i]=(float *)malloc(matsize*sizeof(float));
@@ -437,10 +436,10 @@ float** inverse_mat(float** A, int mat_row_and_col){
   for(i=0;i<matsize;i++)
       I[i]=(float *)malloc(matsize*sizeof(float));
 
-  printf("Enter the matrix: ");                           // ask the user for matrix A
-  for(i=0;i<matsize;i++)
-      for(j=0;j<matsize;j++)
-          scanf("%f",&A[i][j]);
+  // printf("Enter the matrix: ");                           // ask the user for matrix A
+  // for(i=0;i<matsize;i++)
+  //     for(j=0;j<matsize;j++)
+  //         scanf("%f",&A[i][j]);
 
   for(i=0;i<matsize;i++)                                  //automatically initialize the unit matrix, e.g.
       for(j=0;j<matsize;j++)                              //  -       -
