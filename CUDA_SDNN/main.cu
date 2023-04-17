@@ -206,18 +206,18 @@ int main(int argc, char**argv) {
 
     float* x_h = (float*)malloc(sizeof(float)*row_num);
     float* x_p_h = (float*)malloc(sizeof(float)*row_num);
-    x_p_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
+    x_p_h = vec_add_vec(row_num,mat_mul_vec(row_num, const_num, ME_T, u_p_h),s);
 
     float* x_optimal = (float*)malloc(sizeof(float)*row_num);
 
     // Initialize Ex
-    float* Ex = (float*)malloc(sizeof(float)*col_num);
+    float* Ex = (float*)malloc(sizeof(float)*const_num);
     
     // Initialize g_Ex_u
-    float* g_Ex_u = (float*)malloc(sizeof(float)*col_num);
+    float* g_Ex_u = (float*)malloc(sizeof(float)*const_num);
     
     // Initialize u_c_h
-    float* u_c_h = (float*)malloc(sizeof(float)*col_num);
+    float* u_c_h = (float*)malloc(sizeof(float)*const_num);
     
     int iter_count = 0; float iter_time = 0;float tol = FLT_MAX;
 
@@ -236,22 +236,22 @@ int main(int argc, char**argv) {
         printf("Vector x_p_h: \n"); fflush(stdout);
         print_1d_array(row_num,x_p_h);
 
-        Ex = mat_mul_vec(col_num,row_num, E, x_p_h);
+        Ex = mat_mul_vec(const_num,row_num, E, x_p_h);
         printf("Vector Ex: \n"); fflush(stdout);
-        print_1d_array(col_num,Ex);
+        print_1d_array(const_num,Ex);
 
-        g_Ex_u = g_function(col_num, vec_add_vec(col_num,Ex,u_p_minus),l,h);
+        g_Ex_u = g_function(const_num, vec_add_vec(const_num,Ex,u_p_minus),l,h);
         printf("Vector g_Ex_u: \n"); fflush(stdout);
-        print_1d_array(col_num,g_Ex_u);
+        print_1d_array(const_num,g_Ex_u);
 
 
         // u_c_h =vec_add_vec(col_num,u_p_h,scale_vec(col_num, EPSILON, vec_add_vec(col_num,g_Ex_u, scale_vec(col_num,-1, Ex)))
-        for (int _idx = 0; _idx< col_num; _idx++)
+        for (int _idx = 0; _idx< const_num; _idx++)
         {
             u_c_h[_idx] = u_p_h[_idx] + (1/EPSILON)*(g_Ex_u[_idx]-Ex[_idx]);
         }
         printf("Vector u_c_h: \n"); fflush(stdout);
-        print_1d_array(col_num,u_c_h);
+        print_1d_array(const_num,u_c_h);
 
 
         // Allocate device variables ----------------------------------------------
@@ -263,11 +263,11 @@ int main(int argc, char**argv) {
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate x_d device memory");
 
         float* u_d;
-        cuda_ret = cudaMalloc((void**) &u_d, sizeof(float)*col_num);
+        cuda_ret = cudaMalloc((void**) &u_d, sizeof(float)*const_num);
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate u_d device memory");
 
         float* ME_T_d; // this should be 2d mat stored in 1d (col-wised might be better)
-        cuda_ret = cudaMalloc((void**) &ME_T_d, sizeof(float)*row_num*col_num);
+        cuda_ret = cudaMalloc((void**) &ME_T_d, sizeof(float)*row_num*const_num);
         if(cuda_ret != cudaSuccess) FATAL("Unable to allocate ME_T device memory");
 
         float* s_d;
@@ -284,10 +284,10 @@ int main(int argc, char**argv) {
         // cuda_ret = cudaMemcpy(x_d, x_h, sizeof(float)*row_num, cudaMemcpyHostToDevice);
         // if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory x_h to x_d device");
         // u_current
-        cuda_ret = cudaMemcpy(u_d, u_c_h, sizeof(float)*col_num, cudaMemcpyHostToDevice);
+        cuda_ret = cudaMemcpy(u_d, u_c_h, sizeof(float)*const_num, cudaMemcpyHostToDevice);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory u_c_h to u_d device");
         // ME_T_d
-        cuda_ret = cudaMemcpy(ME_T_d, ME_T_h_1d, sizeof(float)*row_num*col_num, cudaMemcpyHostToDevice);
+        cuda_ret = cudaMemcpy(ME_T_d, ME_T_h_1d, sizeof(float)*row_num*const_num, cudaMemcpyHostToDevice);
         if(cuda_ret != cudaSuccess) FATAL("Unable to copy memory ME_T_h_1d to ME_T_d device");
         // s
         cuda_ret = cudaMemcpy(s_d, s, sizeof(float)*row_num, cudaMemcpyHostToDevice);
@@ -347,8 +347,8 @@ int main(int argc, char**argv) {
 
         // Tolerance verification
         printf("Tolerance check..."); fflush(stdout);
-        float* gradient = vec_add_vec(col_num, g_Ex_u, scale_vec(col_num,-1, Ex));
-        tol = vec_l1_norm(col_num, gradient);
+        float* gradient = vec_add_vec(const_num, g_Ex_u, scale_vec(const_num,-1, Ex));
+        tol = vec_l1_norm(const_num, gradient);
         if (tol < 0.000001)
         {
             tolerance_met = true;
@@ -365,7 +365,7 @@ int main(int argc, char**argv) {
         // Updating rule
         // u_p_h
         u_p_h = u_c_h;
-        u_p_minus = scale_vec(col_num,-1,u_p_h);
+        u_p_minus = scale_vec(const_num,-1,u_p_h);
         x_p_h = x_h;
 
         iter_count++;
