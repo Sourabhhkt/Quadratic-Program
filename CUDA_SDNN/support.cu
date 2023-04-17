@@ -422,7 +422,7 @@ float* read_h(char* inst_path,char* inst_name, int row_num){
   return h;
 }
 float** inverse_mat(float** A, int mat_row_and_col){
-  float **A,**I,temp;
+  float **I,temp;
   int i,j,k;
   int matsize = mat_row_and_col;
 
