@@ -123,12 +123,13 @@ int main(int argc, char**argv) {
 
     printf("\n Calculating ME_T..."); fflush(stdout);
     ME_T = sqmat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E));
-    printf("Matrix ME^T: \n"); fflush(stdout);
-    print_2d_array(row_num,const_num,ME_T);
+    // printf("Matrix ME^T: \n"); fflush(stdout);
+    // print_2d_array(row_num,const_num,ME_T);
+    printf("\n Storing ME_T in 1d format..."); fflush(stdout);
     float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*const_num);
     ME_T_h_1d = convert_2d_mat_to_1d_arr(row_num, const_num, ME_T);
     printf("Matrix ME^T_1d: \n"); fflush(stdout);
-    print_1d_array(row_num*const_num,ME_T_h_1d);
+    // print_1d_array(row_num*const_num,ME_T_h_1d);
 
 
 
