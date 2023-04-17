@@ -33,7 +33,7 @@ float* read_l(char* inst_path,char* inst_name, int row_num);
 float* read_h(char* inst_path,char* inst_name, int row_num);
 float** inverse_mat(float** A, int mat_row_and_col);
 float** transpose_mat(int _r, int _c, float** _A);
-float** mat_mul_mat( int _r, int _c, float** _A,float** _B);
+float** sqmat_mul_mat( int _r, int _c, float** _A,float** _B);
 #ifdef __cplusplus
 }
 #endif

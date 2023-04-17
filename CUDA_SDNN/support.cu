@@ -477,7 +477,7 @@ float** inverse_mat(float** A, int mat_row_and_col){
 }
 
 
-float** mat_mul_mat( int _r, int _c, float** _A,float** _B){
+float** sqmat_mul_mat( int _r, int _c, float** _A,float** _B){
   int _i,_j,_k;
   float** result = (float**) malloc( sizeof(float*)*_r );
   for (int i = 0; i < _r; i++){
@@ -486,14 +486,15 @@ float** mat_mul_mat( int _r, int _c, float** _A,float** _B){
 
   for (_i = 0; _i < _r; _i++){
       // float ans_arr[_r];
-      for (_k = 0; _k < _r; _k++){
-          float _s = 0;
-          for (_j = 0; _j < _c; _j++){
-              _s = _s + _A[_i][_j]*_B[_j][_k];
-              result[_i][_k] = _s;
+      for (_k = 0; _k < _c; _k++){
+        result[_i][_k] = 0;
+          for (_j = 0; _j < _r; _j++){
+            result[_i][_k] += _A[_i][_j]*_B[_j][_k];
+              
               // printf("%f ",_A[_i][_j]*_B[_j][_k]);
               // printf("A[%d][%d] x B[%d][%d] = %.3f x %.3f = %f \n",_i,_j,_j,_k, _A[_i][_j],_B[_j][_k],_A[_i][_j]*_B[_j][_k]);
           }
+          
           
       }
       // print_1d_array(_r, ans_arr);

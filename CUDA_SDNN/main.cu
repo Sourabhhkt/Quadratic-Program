@@ -115,7 +115,7 @@ int main(int argc, char**argv) {
     E_T = transpose_mat(const_num, row_num, E);
 
     printf("\n Calculating ME_T..."); fflush(stdout);
-    ME_T = mat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E));
+    ME_T = sqmat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E));
     printf("Matrix ME^T: \n"); fflush(stdout);
     print_2d_array(row_num,const_num,ME_T);
     float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*const_num);
