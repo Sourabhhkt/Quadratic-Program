@@ -80,7 +80,7 @@ int main(int argc, char**argv) {
     float step_size = get_step_size(inst_name, w_name);
     printf("\n Dataset name: %s ", inst_name); fflush(stdout);
     printf("\n W name: %s ", w_name); fflush(stdout);
-    printf("\n Step size: %f \n", step_size); fflush(stdout);
+    // printf("\n Step size: %f \n", step_size); fflush(stdout);
 
 
 
@@ -136,7 +136,7 @@ int main(int argc, char**argv) {
 
     // Initialize host variables ----------------------------------------------
     
-    printf("\nSetting up the problem..."); fflush(stdout);
+    printf("\nSetting up the problem...\n"); fflush(stdout);
     startTime(&timer);
     float EPSILON; int ITERATIONLIM; float TIMELIMINSEC;
     if (argc==2){
@@ -157,7 +157,7 @@ int main(int argc, char**argv) {
         TIMELIMINSEC = 120; // 2mins
     }
      
-    printf("EPSILON = %f \n", EPSILON); fflush(stdout);
+    printf("Step size = %f \n", step_size); fflush(stdout);
     printf("ITERATIONLIM = %d \n", ITERATIONLIM); fflush(stdout);
     printf("TIMELIMINSEC = %f \n", TIMELIMINSEC); fflush(stdout);
 
