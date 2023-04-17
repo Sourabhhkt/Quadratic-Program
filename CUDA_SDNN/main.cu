@@ -43,14 +43,20 @@ int main(int argc, char**argv) {
     int row_num = 50; // this define dim of x
     int col_num = 1;
 
+    // Init W
+    float** W = (float**) malloc( sizeof(float*)*row_num );
+    for (int i = 0; i < row_num; i++){
+        *(W+i) = (float*)malloc(sizeof(float)*row_num);
+    }
+
 
     printf("\nTesting csv reader function..\n"); fflush(stdout);
     char inst_path[] = "../DataInstance/QPLIB_0018/";
     char inst_name[] = "QPLIB_0018";
 
     char f_name[] = "example.csv";
-    read_W(inst_path,inst_name, row_num, col_num);
-
+    W = read_W(inst_path,inst_name, row_num, col_num);
+    print_2d_array(row_num,row_num,W);
 
 
     // Initialize host variables ----------------------------------------------

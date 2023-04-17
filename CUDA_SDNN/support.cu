@@ -174,7 +174,7 @@ float vec_l1_norm(int col_num, float* gradient){
   return ans;
 }
 
-#define MAXCHAR 1000000
+#define MAXCHAR 100000
 void read_csv_file(char* filename){ 
 
   FILE *fp;
@@ -201,7 +201,13 @@ void read_csv_file(char* filename){
 }
 
 #define STR_SIZE 10000
-void read_W(char* inst_path,char* inst_name, int row_num, int col_num){ 
+float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){ 
+
+  float** W = (float**) malloc( sizeof(float*)*row_num );
+  for (int i = 0; i < row_num; i++){
+      *(W+i) = (float*)malloc(sizeof(float)*row_num);
+  }
+  int r_idx = 0; int c_idx = 0;
 
   FILE *fp;
   char row[MAXCHAR];
@@ -209,24 +215,24 @@ void read_W(char* inst_path,char* inst_name, int row_num, int col_num){
 
   char filepath[STR_SIZE] = {0};
   snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_W1.csv");
-  printf("%s\n", filepath);
   char* pointer_to_path = filepath;
 
   fp = fopen(pointer_to_path,"r");
-  printf("Reading file...\n");
+  printf("Reading file... %s \n", filepath);
 
   while (feof(fp) != true)
   {
       fgets(row, MAXCHAR, fp);
-      printf("Row: %s", row);
-
+      // printf("Row: %s", row);
       token = strtok(row, ",");
-
       while(token != NULL)
       {
-          printf("Token: %s\n", token);
+          // printf("Token: %s\n", token);
+          W[r_idx][c_idx] = atof(token);
           token = strtok(NULL, ",");
+          c_idx++;
       }
+      r_idx++;
 
   }
 }
