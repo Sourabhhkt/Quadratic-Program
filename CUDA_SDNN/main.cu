@@ -72,10 +72,10 @@ int main(int argc, char**argv) {
     C = read_C(inst_path,inst_name, row_num);
     // print_1d_array(row_num,C);
 
-    // l = read_l(inst_path,inst_name, row_num);
+    l = read_l(inst_path,inst_name, row_num);
     // // print_1d_array(row_num,l);
 
-    // l = read_l(inst_path,inst_name, row_num);
+    h = read_h(inst_path,inst_name, row_num);
     // print_1d_array(row_num,h);
 
     // Initialize host variables ----------------------------------------------

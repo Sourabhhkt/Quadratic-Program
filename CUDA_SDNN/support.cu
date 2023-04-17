@@ -325,8 +325,85 @@ float* read_C(char* inst_path,char* inst_name, int row_num){
   return C;
 }
 
+float* read_l(char* inst_path,char* inst_name, int row_num){ 
 
+  float* l = (float*) malloc( sizeof(float)*row_num );
+  
+  FILE *fp;
+  char row[MAXCHAR];
+  char *token;
 
+  char filepath[STR_SIZE] = {0};
+  snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_l.csv");
+  char* pointer_to_path = filepath;
+
+  fp = fopen(pointer_to_path,"r");
+  printf("Reading file... %s \n", filepath);
+
+  int r_idx = 0;int c_idx = 0;
+  int read_r_size;int read_c_size;
+  while (feof(fp) != true)
+  {
+      fgets(row, MAXCHAR, fp);
+      // printf("Reading row: %d \n", r_idx);
+      token = strtok(row, ",");
+      c_idx = 0;
+      while(token != NULL)
+      {
+          // printf("   Reading col: %d \n", c_idx);
+          if ((c_idx < 1) and (r_idx < row_num)) {
+            l[r_idx] = atof(token);
+            read_r_size = r_idx; 
+            read_c_size = c_idx;
+          }
+          token = strtok(NULL, ",");
+          c_idx++;
+      }
+      r_idx++;
+  }
+  printf("Finished reading l with size r:%d x c:%d \n", read_r_size+1, read_c_size+1);
+  return l;
+}
+
+float* read_h(char* inst_path,char* inst_name, int row_num){ 
+
+  float* h = (float*) malloc( sizeof(float)*row_num );
+  
+  FILE *fp;
+  char row[MAXCHAR];
+  char *token;
+
+  char filepath[STR_SIZE] = {0};
+  snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_h.csv");
+  char* pointer_to_path = filepath;
+
+  fp = fopen(pointer_to_path,"r");
+  printf("Reading file... %s \n", filepath);
+
+  int r_idx = 0;int c_idx = 0;
+  int read_r_size;int read_c_size;
+  while (feof(fp) != true)
+  {
+      fgets(row, MAXCHAR, fp);
+      // printf("Reading row: %d \n", r_idx);
+      token = strtok(row, ",");
+      c_idx = 0;
+      while(token != NULL)
+      {
+          // printf("   Reading col: %d \n", c_idx);
+          if ((c_idx < 1) and (r_idx < row_num)) {
+            h[r_idx] = atof(token);
+            read_r_size = r_idx; 
+            read_c_size = c_idx;
+          }
+          token = strtok(NULL, ",");
+          c_idx++;
+      }
+      r_idx++;
+  }
+  printf("Finished reading h with size r:%d x c:%d \n", read_r_size+1, read_c_size+1);
+  return h;
+}
 
 
 
