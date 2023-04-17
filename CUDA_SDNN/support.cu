@@ -235,6 +235,7 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
       r_idx++;
 
   }
+  return W;
 }
 
 

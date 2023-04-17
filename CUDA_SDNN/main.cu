@@ -54,7 +54,7 @@ int main(int argc, char**argv) {
     char inst_path[] = "../DataInstance/QPLIB_0018/";
     char inst_name[] = "QPLIB_0018";
 
-    char f_name[] = "example.csv";
+    // char f_name[] = "example.csv";
     W = read_W(inst_path,inst_name, row_num, col_num);
     print_2d_array(row_num,row_num,W);
 
