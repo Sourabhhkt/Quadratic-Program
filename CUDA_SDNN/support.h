@@ -28,6 +28,9 @@ float vec_l1_norm(int col_num, float* gradient);
 void read_csv_file(char* filename);
 float** read_W(char* inst_path,char* inst_name, int row_num, int col_num);
 float** read_E(char* inst_path,char* inst_name, int row_num, int col_num);
+float* read_C(char* inst_path,char* inst_name, int row_num);
+// float* read_l(char* inst_path,char* inst_name, int row_num);
+// float* read_h(char* inst_path,char* inst_name, int row_num);
 #ifdef __cplusplus
 }
 #endif

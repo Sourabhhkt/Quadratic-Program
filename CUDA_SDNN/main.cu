@@ -61,12 +61,19 @@ int main(int argc, char**argv) {
     char inst_name[] = "QPLIB_0018";
 
     W = read_W(inst_path,inst_name, row_num, row_num);
-    print_2d_array(row_num,row_num,W);
+    // print_2d_array(row_num,row_num,W);
 
     E = read_E(inst_path,inst_name, col_num, row_num);
-    print_2d_array(col_num,row_num,E);
+    // print_2d_array(col_num,row_num,E);
 
+    C = read_C(inst_path,inst_name, row_num);
+    // print_1d_array(row_num,C);
 
+    // l = read_l(inst_path,inst_name, row_num);
+    // // print_1d_array(row_num,l);
+
+    // l = read_l(inst_path,inst_name, row_num);
+    // print_1d_array(row_num,h);
 
     // Initialize host variables ----------------------------------------------
     

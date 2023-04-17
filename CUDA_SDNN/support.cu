@@ -285,6 +285,45 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){
   return E;
 }
 
+float** read_C(char* inst_path,char* inst_name, int row_num){ 
+
+  float* C = (float*) malloc( sizeof(float)*row_num );
+  
+  FILE *fp;
+  char row[MAXCHAR];
+  char *token;
+
+  char filepath[STR_SIZE] = {0};
+  snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_C.csv");
+  char* pointer_to_path = filepath;
+
+  fp = fopen(pointer_to_path,"r");
+  printf("Reading file... %s \n", filepath);
+
+  int c_idx = 0;
+  int read_c_size;
+  while (feof(fp) != true)
+  {
+      fgets(row, MAXCHAR, fp);
+      // printf("Reading row: %d \n", r_idx);
+      token = strtok(row, ",");
+      c_idx = 0;
+      while(token != NULL)
+      {
+          // printf("   Reading col: %d \n", c_idx);
+          if ((c_idx < row_num) and (r_idx < 1)) {
+            C[c_idx] = atof(token);
+            read_r_size = r_idx; 
+            read_c_size = c_idx;
+          }
+          token = strtok(NULL, ",");
+          c_idx++;
+      }
+      r_idx++;
+  }
+  printf("Finished reading C with size r:%d x c:%d \n", read_r_size+1, read_c_size+1);
+  return E;
+}
 
 
 
