@@ -353,7 +353,7 @@ int main(int argc, char* argv[]) {
         float* gradient = vec_add_vec(const_num, g_Ex_u, scale_vec(const_num,-1, Ex));
         tol = vec_l1_norm(const_num, gradient);
         printf("Tolerance = %f \n", tol );
-        if (tol < 0.000001)
+        if (tol < 0.0001)
         {
             tolerance_met = true;
             printf("Tolerance limit reached! %f\n", tol); fflush(stdout);
