@@ -285,7 +285,7 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){
   return E;
 }
 
-float** read_C(char* inst_path,char* inst_name, int row_num){ 
+float* read_C(char* inst_path,char* inst_name, int row_num){ 
 
   float* C = (float*) malloc( sizeof(float)*row_num );
   
@@ -322,7 +322,7 @@ float** read_C(char* inst_path,char* inst_name, int row_num){
       r_idx++;
   }
   printf("Finished reading C with size r:%d x c:%d \n", read_r_size+1, read_c_size+1);
-  return E;
+  return C;
 }
 
 
