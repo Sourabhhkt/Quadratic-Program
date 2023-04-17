@@ -49,14 +49,23 @@ int main(int argc, char**argv) {
         *(W+i) = (float*)malloc(sizeof(float)*row_num);
     }
 
+    // Init E
+    float** E = (float**) malloc( sizeof(float*)*col_num );
+    for (int i = 0; i < col_num; i++){
+        *(E+i) = (float*)malloc(sizeof(float)*row_num);
+    }
+
 
     printf("\nTesting csv reader function..\n"); fflush(stdout);
     char inst_path[] = "../DataInstance/QPLIB_0018/";
     char inst_name[] = "QPLIB_0018";
 
-    // char f_name[] = "example.csv";
-    W = read_W(inst_path,inst_name, row_num, col_num);
+    W = read_W(inst_path,inst_name, row_num, row_num);
     print_2d_array(row_num,row_num,W);
+
+    E = read_E(inst_path,inst_name, col_num, row_num);
+    print_2d_array(col_num,row_num,E);
+
 
 
     // Initialize host variables ----------------------------------------------
@@ -96,14 +105,14 @@ int main(int argc, char**argv) {
     l = raw_l; h = raw_h;
 
     // Constant parameter from the problem: ME^T
-    float** E = (float**) malloc( sizeof(float*)*col_num );
-    for (int i = 0; i < col_num; i++){
-        *(E+i) = (float*)malloc(sizeof(float)*row_num);
-    }
-    E[0][0] =  -1; E[0][1] =  1; E[0][2] =  0; E[0][3] =  0;
-    E[1][0] =  3; E[1][1] =  0; E[1][2] =  1; E[1][3] =  0;
-    printf("Matrix E: \n"); fflush(stdout);
-    print_2d_array(col_num,row_num,E);
+    // float** E = (float**) malloc( sizeof(float*)*col_num );
+    // for (int i = 0; i < col_num; i++){
+    //     *(E+i) = (float*)malloc(sizeof(float)*row_num);
+    // }
+    // E[0][0] =  -1; E[0][1] =  1; E[0][2] =  0; E[0][3] =  0;
+    // E[1][0] =  3; E[1][1] =  0; E[1][2] =  1; E[1][3] =  0;
+    // printf("Matrix E: \n"); fflush(stdout);
+    // print_2d_array(col_num,row_num,E);
 
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );

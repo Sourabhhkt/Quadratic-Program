@@ -207,7 +207,6 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   for (int i = 0; i < row_num; i++){
       *(W+i) = (float*)malloc(sizeof(float)*row_num);
   }
-
   FILE *fp;
   char row[MAXCHAR];
   char *token;
@@ -237,8 +236,49 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
       }
       r_idx++;
   }
+  printf("Finished reading W with size r:%d x c:%d \n", r_idx+1, c_idx+1);
   return W;
 }
+
+float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){ 
+
+  float** E = (float**) malloc( sizeof(float*)*row_num );
+  for (int i = 0; i < row_num; i++){
+      *(E+i) = (float*)malloc(sizeof(float)*col_num);
+  }
+  FILE *fp;
+  char row[MAXCHAR];
+  char *token;
+
+  char filepath[STR_SIZE] = {0};
+  snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_E.csv");
+  char* pointer_to_path = filepath;
+
+  fp = fopen(pointer_to_path,"r");
+  printf("Reading file... %s \n", filepath);
+
+  int r_idx = 0; int c_idx = 0;
+  while (feof(fp) != true)
+  {
+      fgets(row, MAXCHAR, fp);
+      // printf("Reading row: %d \n", r_idx);
+      token = strtok(row, ",");
+      c_idx = 0;
+      while(token != NULL)
+      {
+          // printf("   Reading col: %d \n", c_idx);
+          if ((c_idx < col_num) and (r_idx < row_num)) {
+            E[r_idx][c_idx] = atof(token);
+          }
+          token = strtok(NULL, ",");
+          c_idx++;
+      }
+      r_idx++;
+  }
+  printf("Finished reading E with size r:%d x c:%d \n", r_idx+1, c_idx+1);
+  return E;
+}
+
 
 
 
