@@ -43,6 +43,7 @@ int main(int argc, char**argv) {
 
     int row_num = 50; // this define dim of x
     int col_num = 1;
+    int const_num = row_num+1;
 
     // Init W
     float** W = (float**) malloc( sizeof(float*)*row_num );
@@ -51,8 +52,8 @@ int main(int argc, char**argv) {
     }
 
     // Init E
-    float** E = (float**) malloc( sizeof(float*)*col_num );
-    for (int i = 0; i < col_num; i++){
+    float** E = (float**) malloc( sizeof(float*)*const_num );
+    for (int i = 0; i < const_num; i++){
         *(E+i) = (float*)malloc(sizeof(float)*row_num);
     }
 
@@ -92,9 +93,9 @@ int main(int argc, char**argv) {
         *(M+i) = (float*)malloc(sizeof(float)*row_num);
     }
     M = inverse_mat(W,row_num);
-    print_2d_array(row_num,row_num,M);
+    // print_2d_array(row_num,row_num,M);
 
-    int const_num = row_num+1;
+    
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
     for (int i = 0; i < row_num; i++){
