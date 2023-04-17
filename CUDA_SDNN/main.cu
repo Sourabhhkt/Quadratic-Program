@@ -94,7 +94,7 @@ int main(int argc, char**argv) {
     M = inverse_mat(W,row_num);
     print_2d_array(row_num,row_num,M);
 
-    const_num = row_num+1;
+    int const_num = row_num+1;
     // Constant parameter from the problem: ME^T
     float** ME_T = (float**) malloc( sizeof(float*)*row_num );
     for (int i = 0; i < row_num; i++){
@@ -105,10 +105,10 @@ int main(int argc, char**argv) {
     // ME_T[1][0] =  0.03548575; ME_T[1][1] =  -0.01919721; 
     // ME_T[2][0] =  -0.05759162; ME_T[2][1] =  0.16230366; 
     // ME_T[3][0] =  0.02443281; ME_T[3][1] =  0.05235602; 
-    ME_T = mat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E))
+    ME_T = mat_mul_mat(row_num,const_num, M, transpose_mat(const_num, row_num, E));
     printf("Matrix ME^T: \n"); fflush(stdout);
     print_2d_array(row_num,const_num,ME_T);
-    float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*cconst_num);
+    float* ME_T_h_1d = (float*)malloc(sizeof(float)*row_num*const_num);
     ME_T_h_1d = convert_2d_mat_to_1d_arr(row_num, const_num, ME_T);
     printf("Matrix ME^T_1d: \n"); fflush(stdout);
     print_1d_array(row_num*const_num,ME_T_h_1d);
