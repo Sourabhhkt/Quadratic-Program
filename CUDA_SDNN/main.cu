@@ -40,9 +40,16 @@ int main(int argc, char**argv) {
     //  [ 0.02443281  0.05235602]]
     // s = 
     //  [0.26236184 0.26294357 0.2617801  0.52530541]
+    int row_num = 50; // this define dim of x
+    int col_num = 1;
+
+
     printf("\nTesting csv reader function.."); fflush(stdout);
+    char* inst_path = "/DataInstance/QPLOB_0018/";
+    char* inst_name = "QPLOB_0018";
+
     char* f_name = "example.csv";
-    read_csv_file(f_name);
+    read_W(inst_path,inst_name, row_num, col_num);
 
 
 
@@ -74,8 +81,7 @@ int main(int argc, char**argv) {
     printf("TIMELIMINSEC = %f \n", TIMELIMINSEC); fflush(stdout);
 
     
-    int row_num = 4; // this define dim of x
-    int col_num = 2;
+
 
     // Constant parameter from the problem: l and h
     float* l; float* h; 
