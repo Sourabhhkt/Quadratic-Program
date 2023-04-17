@@ -201,6 +201,7 @@ void read_csv_file(char* filename){
 }
 
 #define STR_SIZE 10000
+#define DELIM " ,\n"
 float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){ 
 
   float** W = (float**) malloc( sizeof(float*)*row_num );
@@ -224,7 +225,7 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   {
       fgets(row, MAXCHAR, fp);
       printf("Reading row: %d \n", r_idx);
-      token = strtok(row, ",");
+      token = strtok(row, DELIM);
       c_idx = 0;
       while(token != NULL)
       {
@@ -234,7 +235,7 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
-          token = strtok(NULL, ",");
+          token = strtok(NULL, DELIM);
           c_idx++;
       }
       r_idx++;
@@ -266,7 +267,7 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){
   {
       fgets(row, MAXCHAR, fp);
       // printf("Reading row: %d \n", r_idx);
-      token = strtok(row, ",");
+      token = strtok(row, DELIM);
       c_idx = 0;
       while(token != NULL)
       {
@@ -276,7 +277,7 @@ float** read_E(char* inst_path,char* inst_name, int row_num, int col_num){
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
-          token = strtok(NULL, ",");
+          token = strtok(NULL, DELIM);
           c_idx++;
       }
       r_idx++;
@@ -306,7 +307,7 @@ float* read_C(char* inst_path,char* inst_name, int row_num){
   {
       fgets(row, MAXCHAR, fp);
       // printf("Reading row: %d \n", r_idx);
-      token = strtok(row, ",");
+      token = strtok(row, DELIM);
       c_idx = 0;
       while(token != NULL)
       {
@@ -316,7 +317,7 @@ float* read_C(char* inst_path,char* inst_name, int row_num){
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
-          token = strtok(NULL, ",");
+          token = strtok(NULL, DELIM);
           c_idx++;
       }
       r_idx++;
@@ -348,7 +349,7 @@ float* read_l(char* inst_path,char* inst_name, int row_num){
   {
       fgets(row, MAXCHAR, fp);
       // printf("Reading row: %d \n", r_idx);
-      token = strtok(row, ",");
+      token = strtok(row, DELIM);
       c_idx = 0;
       while(token != NULL)
       {
@@ -364,7 +365,7 @@ float* read_l(char* inst_path,char* inst_name, int row_num){
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
-          token = strtok(NULL, ",");
+          token = strtok(NULL, DELIM);
           c_idx++;
       }
       r_idx++;
@@ -396,7 +397,7 @@ float* read_h(char* inst_path,char* inst_name, int row_num){
   {
       fgets(row, MAXCHAR, fp);
       // printf("Reading row: %d \n", r_idx);
-      token = strtok(row, " ,\n");
+      token = strtok(row, DELIM);
       c_idx = 0;
       while(token != NULL)
       {
@@ -412,7 +413,7 @@ float* read_h(char* inst_path,char* inst_name, int row_num){
             read_r_size = r_idx; 
             read_c_size = c_idx;
           }
-          token = strtok(NULL, " ,\n");
+          token = strtok(NULL, DELIM);
           c_idx++;
       }
       r_idx++;
