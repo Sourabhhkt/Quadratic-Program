@@ -84,7 +84,7 @@ int main(int argc, char**argv) {
     // print_2d_array(row_num,row_num+1,E);
 
     C = read_C(inst_path,inst_name, row_num);
-    // print_1d_array(row_num,C);
+    print_1d_array(row_num,C);
 
     l = read_l(inst_path,inst_name, row_num);
     print_1d_array(row_num,l);

@@ -224,12 +224,12 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   while (feof(fp) != true)
   {
       fgets(row, MAXCHAR, fp);
-      printf("Reading row: %d \n", r_idx);
+      // printf("Reading row: %d \n", r_idx);
       token = strtok(row, DELIM);
       c_idx = 0;
       while(token != NULL)
       {
-          printf("   Reading col: %d \n", c_idx);
+          // printf("   Reading col: %d \n", c_idx);
           if ((c_idx < row_num) and (r_idx < row_num)) {
             W[r_idx][c_idx] = atof(token);
             read_r_size = r_idx; 
