@@ -202,7 +202,7 @@ void read_csv_file(char* filename){
 
 #define STR_SIZE 10000
 #define DELIM " ,\n"
-float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){ 
+float** read_W(char* inst_path,char* inst_name, char* w_name, int row_num, int col_num){ 
 
   float** W = (float**) malloc( sizeof(float*)*row_num );
   for (int i = 0; i < row_num; i++){
@@ -213,7 +213,7 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   char *token;
 
   char filepath[STR_SIZE] = {0};
-  snprintf(filepath, sizeof(filepath), "%s%s%s", inst_path, inst_name, "_W1.csv");
+  snprintf(filepath, sizeof(filepath), "%s%s_%s.csv", inst_path, inst_name, w_name);
   char* pointer_to_path = filepath;
 
   fp = fopen(pointer_to_path,"r");
