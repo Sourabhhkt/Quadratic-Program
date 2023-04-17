@@ -193,7 +193,7 @@ int main(int argc, char**argv) {
     // Constant parameter from the problem: s
     // float raw_vecS[] = {0.26236184, 0.26294357, 0.2617801, 0.52530541};
     // float* s = raw_vecS;
-    float* s = mat_mul_vec(M, scale_vec(row_num, -1, C))
+    float* s = mat_mul_vec(M, scale_vec(row_num, -1, C));
     printf("Vector s: \n"); fflush(stdout);
     print_1d_array(row_num,s);
 
