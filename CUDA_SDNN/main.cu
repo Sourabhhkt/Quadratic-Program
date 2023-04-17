@@ -45,10 +45,10 @@ int main(int argc, char**argv) {
 
 
     printf("\nTesting csv reader function.."); fflush(stdout);
-    char* inst_path = "/DataInstance/QPLOB_0018/";
-    char* inst_name = "QPLOB_0018";
+    char inst_path[] = "/DataInstance/QPLOB_0018/";
+    char inst_name[] = "QPLOB_0018";
 
-    char* f_name = "example.csv";
+    char f_name[] = "example.csv";
     read_W(inst_path,inst_name, row_num, col_num);
 
 
