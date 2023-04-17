@@ -207,7 +207,6 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
   for (int i = 0; i < row_num; i++){
       *(W+i) = (float*)malloc(sizeof(float)*row_num);
   }
-  
 
   FILE *fp;
   char row[MAXCHAR];
@@ -226,6 +225,7 @@ float** read_W(char* inst_path,char* inst_name, int row_num, int col_num){
       fgets(row, MAXCHAR, fp);
       printf("Reading row: %d", r_idx);
       token = strtok(row, ",");
+      c_idx = 0;
       while(token != NULL)
       {
           // printf("Token: %s\n", token);
