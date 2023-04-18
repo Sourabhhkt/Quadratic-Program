@@ -579,29 +579,29 @@ float get_step_size(char* inst_name, char* w_name){
     }
   }else if(strcmp(inst_name,qplib_2761)==0){
     if (strcmp(w_name,w0)==0){
-      step_size = 0.00109460;
+      step_size = 0.00109460*0.9;
     }else if (strcmp(w_name,w1)==0){
-      step_size = 0.00184352;
+      step_size = 0.00184352*0.9;
     }else if (strcmp(w_name,w2)==0){
-      step_size = 0.00023714;
+      step_size = 0.00023714*0.9;
     }else if (strcmp(w_name,w3)==0){
-      step_size = 0.00140413;
+      step_size = 0.00140413*0.9;
     }else if (strcmp(w_name,w4)==0){
-      step_size = 0.000899701;
+      step_size = 0.000899701*0.9;
     }else{
       step_size = 1;
     }
   }else if(strcmp(inst_name,qplib_8845)==0){
     if (strcmp(w_name,w0)==0){
-      step_size = 0.0010703;
+      step_size = 0.0010703*0.9;
     }else if (strcmp(w_name,w1)==0){
-      step_size = 0.00056736;
+      step_size = 0.00056736*0.9;
     }else if (strcmp(w_name,w2)==0){
-      step_size = 0.000536811;
+      step_size = 0.000536811*0.9;
     }else if (strcmp(w_name,w3)==0){
-      step_size = 0.000422592;
+      step_size = 0.000422592*0.9;
     }else if (strcmp(w_name,w4)==0){
-      step_size = 0.0005768;
+      step_size = 0.0005768*0.9;
     }else{
       step_size = 1;
     }
