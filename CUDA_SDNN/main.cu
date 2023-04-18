@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
         ITERATIONLIM = atof(argv[3]);
         TIMELIMINSEC = atof(argv[4]);
         TOLLIMIT = atof(argv[5]);
+    }
     else if (argc==5){
         INST_NAME = argv[1];
         W_NAME = argv[2];
