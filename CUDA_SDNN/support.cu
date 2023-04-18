@@ -610,4 +610,28 @@ return step_size;
 }
 
 
+int get_row_num(char* inst_name){
+  char qplib_0018[] = "QPLIB_0018";
+  char qplib_0343[] = "QPLIB_0343";
+  char qplib_2712[] = "QPLIB_2712";
+  char qplib_2761[] = "QPLIB_2761";
+  char qplib_8845[] = "QPLIB_8845";
+
+  int num_vars;
+
+  if (strcmp(inst_name,qplib_0018)==0){
+    num_vars=50;
+  }else if(strcmp(inst_name,qplib_0343)==0){
+    num_vars=50;
+  }else if(strcmp(inst_name,qplib_2712)==0){
+    num_vars=200;
+  }else if(strcmp(inst_name,qplib_2761)==0){
+    num_vars=500;
+  }else if(strcmp(inst_name,qplib_8845)==0){
+    num_vars=1546;
+  }else{
+    num_vars=50;
+  }
+  return num_vars;
+}
 

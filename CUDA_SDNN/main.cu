@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
 
 
 
-    int row_num = 50; // this define dim of x
+    int row_num = get_row_num(inst_name); // this define dim of x
     int col_num = 1;
     int const_num = row_num+col_num;
 

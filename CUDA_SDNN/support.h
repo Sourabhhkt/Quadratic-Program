@@ -35,6 +35,7 @@ float** inverse_mat(float** A, int mat_row_and_col);
 float** transpose_mat(int _r, int _c, float** _A);
 float** sqmat_mul_mat( int _r, int _c, float** _A,float** _B);
 float get_step_size(char* inst_name, char* w_name);
+int get_row_num(char* inst_name); 
 #ifdef __cplusplus
 }
 #endif
