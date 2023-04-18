@@ -305,8 +305,10 @@ int main(int argc, char* argv[]) {
 
         // cudaDeviceSynchronize();
         stopTime(&timer); printf("%f s\n", elapsedTime(timer));
+
+        // SEQUENCIAL X
         // calculate x_h
-        // x_h = vec_add_vec(row_num,mat_mul_vec(row_num, col_num, ME_T, u_p_h),s);
+        x_h = vec_add_vec(row_num,mat_mul_vec(row_num, const_num, ME_T, u_p_h),s);
         // printf("Vector x_h: \n"); fflush(stdout);
         // print_1d_array(row_num,x_h);
 
