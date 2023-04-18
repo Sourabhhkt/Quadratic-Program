@@ -593,15 +593,15 @@ float get_step_size(char* inst_name, char* w_name){
     }
   }else if(strcmp(inst_name,qplib_8845)==0){
     if (strcmp(w_name,w0)==0){
-      step_size = 0.0010703*0.8;
+      step_size = 0.0010703*0.5;
     }else if (strcmp(w_name,w1)==0){
-      step_size = 0.00056736*0.8;
+      step_size = 0.00056736*0.5;
     }else if (strcmp(w_name,w2)==0){
-      step_size = 0.000536811*0.8;
+      step_size = 0.000536811*0.5;
     }else if (strcmp(w_name,w3)==0){
-      step_size = 0.000422592*0.8;
+      step_size = 0.000422592*0.5;
     }else if (strcmp(w_name,w4)==0){
-      step_size = 0.0005768*0.8;
+      step_size = 0.0005768*0.5;
     }else{
       step_size = 1;
     }

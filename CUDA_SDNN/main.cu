@@ -38,27 +38,6 @@ int main(int argc, char* argv[]) {
     printf("\n Dataset name: %s ", inst_name); fflush(stdout);
     printf("\n W name: %s \n", w_name); fflush(stdout);
     // printf("\n Step size: %f \n", step_size); fflush(stdout);
-        
-
-    // if (argc==2){
-    //     EPSILON = atof(argv[1]);
-    //     ITERATIONLIM = 100;
-    //     TIMELIMINSEC = 120; // 2mins
-    // } else if (argc==3){
-    //     EPSILON = atof(argv[1]);
-    //     ITERATIONLIM = atof(argv[2]);
-    //     TIMELIMINSEC = 120; // 2mins
-    // } else if (argc==4){
-    //     EPSILON = atof(argv[1]);
-    //     ITERATIONLIM = atof(argv[2]);
-    //     TIMELIMINSEC = atof(argv[3]);
-    // } else{
-    //     EPSILON = 1;
-    //     ITERATIONLIM = 100;
-    //     TIMELIMINSEC = 120; // 2mins
-    // }
-
-
 
     int row_num = get_row_num(inst_name); // this define dim of x
     int col_num = 1;
