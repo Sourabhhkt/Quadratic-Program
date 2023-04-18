@@ -299,7 +299,7 @@ int main(int argc, char* argv[]) {
         printf("Launching kernel..."); fflush(stdout);
         startTime(&timer);
 
-        const unsigned int THREADS_PER_BLOCK = 256;
+        const unsigned int THREADS_PER_BLOCK = 512;
         const unsigned int numBlocks = (row_num - 1)/THREADS_PER_BLOCK + 1;
         printf("Num blocks: %d, Num threads per block: %d \n",numBlocks,THREADS_PER_BLOCK);
         //INSERT CODE HERE to call kernel
