@@ -92,10 +92,6 @@ int main(int argc, char* argv[]) {
     float* l = (float*) malloc( sizeof(float)*row_num );
 
 
-    
-
-
-
     W = read_W(inst_path,inst_name,w_name,row_num, row_num);
     // print_2d_array(row_num,row_num,W);
 
@@ -330,6 +326,9 @@ int main(int argc, char* argv[]) {
         // Close kernel & free memory
         cudaFree(u_d);
         cudaFree(x_d);
+        cudaFree(ME_T_d);
+        cudaFree(s_d);
+
 
         // Iteration check
         if (iter_count >= ITERATIONLIM)
