@@ -14,7 +14,14 @@ int main(int argc, char* argv[]) {
     printf("\nReading user arguments ...\n"); fflush(stdout);
     char* INST_NAME; char* W_NAME;
     int ITERATIONLIM; float TIMELIMINSEC;
-    if (argc==5){
+    float TOLLIMIT = 0.0001;
+    if (argc==6){
+        INST_NAME = argv[1];
+        W_NAME = argv[2];
+        ITERATIONLIM = atof(argv[3]);
+        TIMELIMINSEC = atof(argv[4]);
+        TOLLIMIT = atof(argv[5]);
+    else if (argc==5){
         INST_NAME = argv[1];
         W_NAME = argv[2];
         ITERATIONLIM = atof(argv[3]);
@@ -331,7 +338,7 @@ int main(int argc, char* argv[]) {
         float* gradient = vec_add_vec(const_num, g_Ex_u, scale_vec(const_num,-1, Ex));
         tol = vec_l1_norm(const_num, gradient);
         printf("Tolerance = %f \n", tol );
-        if (tol < 0.0001)
+        if (tol < TOLLIMIT)
         {
             tolerance_met = true;
             printf("Tolerance limit reached! %f\n", tol); fflush(stdout);
